@@ -1,0 +1,500 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{ucs} 
+\usepackage{amsmath}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc} % Включаем поддержку UTF8  
+\usepackage[russian]{babel}  % Включаем пакет для поддержки русского языка  
+\usepackage{amsfonts}
+\usepackage[left=1.5cm,right=1.5cm]{geometry}
+
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\title{Задачи к 1 и 2 лекции}  
+\author{Нечитаев Дмитрий}
+
+\begin{document} 
+	\maketitle
+	\section*{Задача 1}
+	Необходимо проверить дифференцируемость комплекснозначных функций, найти полюса и их порядок.
+	$$z, z^{2}, \frac{1}{z}, |z|^2, Re(z), Im(z), \frac{1}{z^{2}+1}, e^z, cos(z), (z^*)^{2}, tan(z), th(z)$$
+	Проверяем условия Коши-Римана для каждой функции. 
+	\begin{equation*}
+	f(x+iy) = u(x,y)+iv(x,y) \text{ диф-ма} \Leftrightarrow
+	\begin{cases}
+	\frac{\partial u}{\partial x} = \frac{\partial v}{\partial y} \\
+	\frac{\partial u}{\partial y} = -\frac{\partial v}{\partial x} \\
+	\end{cases}
+	\end{equation*}
+\subsection*{$\mathbf{f(z) = z}$}
+\begin{equation*}
+z:
+\begin{cases}
+	\frac{\partial u}{\partial x} = 1 = \frac{\partial v}{\partial y} \\
+	\frac{\partial u}{\partial y} = 0 = -\frac{\partial v}{\partial x} \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема на } \mathbb{C} ; \text{нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = z^2}$}
+\begin{equation*}
+z^2:
+\begin{cases}
+\frac{\partial u}{\partial x} = 2x = \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} = -2y = -\frac{\partial v}{\partial x} \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема на } \mathbb{C} ; \text{нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = \frac{1}{z}}$}
+\begin{equation*}
+\frac{1}{z}:
+\begin{cases}
+\frac{\partial u}{\partial x} = \frac{y^2-x^2}{(x^2+y^2)^2} = \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} = \frac{-2xy}{(x^2+y^2)^2} = -\frac{\partial v}{\partial x} \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема на } \mathbb{C}\backslash \{0\}; \text{ 0 - полюс первого порядка}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = |z|^2}$}
+\begin{equation*}
+|z|^2:
+\begin{cases}
+\frac{\partial u}{\partial x} = 2x, \frac{\partial v}{\partial y} = 0 \\
+\frac{\partial u}{\partial y} = 2y, -\frac{\partial v}{\partial x} = 0\\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема в нуле; нет полюсов}
+\end{equation*}
+
+\subsection*{$\mathbf{f(z) = Re(z)}$}
+\begin{equation*}
+Re(z):
+\frac{\partial u}{\partial x} = 1 \neq 0 = \frac{\partial v}{\partial y}
+\Leftrightarrow
+\text{ не дифференцируема; нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = Im(z)}$}
+\begin{equation*}
+Im(z):
+\frac{\partial u}{\partial y} = 1 \neq 0 = -\frac{\partial v}{\partial x}
+\Leftrightarrow
+\text{ не дифференцируема; нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = \frac{1}{z^2+1}}$}
+\[\text{Заметим, что } f(z) = \frac{1}{z^2+1} = \frac{i}{2(z+i)} - \frac{i}{2(z-i)} \Rightarrow \text{достаточно проверить одну дробь} \]
+\begin{equation*}
+\frac{1}{z+i}:
+\begin{cases}
+\frac{\partial u}{\partial x} = \frac{(y+1)^2-x^2}{(x^2+(y+1)^2)^2} = \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} = \frac{-2x(y+1)}{(x^2+(y+1)^2)^2} = -\frac{\partial v}{\partial x}\\
+\end{cases}
+\Leftrightarrow
+\text{ диф-ма на } \mathbb{C}\backslash \{-i\}; \text{ $-i$ - полюс первого порядка}
+\end{equation*}
+Вторая дробь рассчитывается аналогично. В таком случае $f(z) = \frac{1}{z^2+1}$ диф-ма на $\mathbb{C} \backslash \{\pm i\} $ и имеет полюса ${\pm i}$ первого порядка.
+
+\subsection*{$\mathbf{f(z) = e^z}$}
+Преобразуем выражение $f(z) = e^z = e^{x+iy} = e^x(cos(y)+isin(y))$
+\begin{equation*}
+e^z:
+\begin{cases}
+\frac{\partial u}{\partial x} = e^x cos(y) = \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} = -e^x sin(y) = -\frac{\partial v}{\partial x} \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема на } \mathbb{C} ; \text{нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = cos(z)}$}
+$$cos(x+iy) = cos(x)cos(iy)-sin(x)sin(iy) = cos(x)ch(y)-i sin(x)sh(y)$$
+\begin{equation*}
+cos(z):
+\begin{cases}
+\frac{\partial u}{\partial x} = -sin(x)ch(y) = \frac{\partial v}{\partial y} \\
+\frac{\partial u}{\partial y} = cos(x)sh(y) = -\frac{\partial v}{\partial x} \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема на } \mathbb{C} ; \text{нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = (z^*)^{2}}$}
+\[f(z) = (z^*)^{2} = x^2-y^2 - 2ixy \Rightarrow\]
+\begin{equation*}
+(z^*)^{2}:
+\begin{cases}
+\frac{\partial u}{\partial x} = 2x, \frac{\partial v}{\partial y}=-2x \\
+\frac{\partial u}{\partial y} = -2y, -\frac{\partial v}{\partial x}=2y \\
+\end{cases}
+\Leftrightarrow
+\text{ дифференцируема в нуле; нет полюсов}
+\end{equation*}
+\subsection*{$\mathbf{f(z) = tan(z)}$}
+\[f(z) = \frac{sin(x+iy)}{cos(x+iy)} = \frac{sin(x)ch(y) + icos(x)sh(y)}{cos(x)ch(y)-isin(x)sh(y)} = \frac{sin(2x)}{2(sh^2(y)+cos^2(x))}+\frac{i sh(2y)}{2(sh^2(y)+cos^2(x))}\]
+Вычисляем каждую частную производную
+\[\frac{\partial u}{\partial x} = \frac{2cos(2x)(sh^2(y)+cos^2(x))+sin^2(2x)}{2(sh^2(y)+cos^2(x))^2}\]
+\[\frac{\partial v}{\partial y} = \frac{2ch(2y)(sh^2(y)+cos^2(x))-sh^2(2y)}{2(sh^2(y)+cos^2(x))^2}\]
+\[\frac{\partial u}{\partial y} = -\frac{sin(2x)sh(2y)}{2(sh^2(y)+cos^2(x))^2} = -\frac{\partial v}{\partial x}\]
+Пусть теперь $2(sh^2(y)+cos^2(x))^2(\frac{\partial u}{\partial x} - \frac{\partial v}{\partial y}) = A$, тогда упрощение дает:
+\[A = 2(cos(2x)-ch(2y))(sh^2y+cos^2x)+sin^2x+sh^2(2y) = 4(cos^2x-ch^2y)(sh^2y+cos^2x)+sin^2x+sh^2(2y) = \]
+\[= 4cos^2xsh^2y+4cos^4x-4ch^2ysh^2y-4ch^2ycos^2x+sin^2(2x)+sh^2(2y) = -4cos^2x(1-cos^2x)+sin^2(2x) = 0\]
+Получаем, что функция диф-ма на $\mathbb{C}\backslash \{\frac{\pi}{2}+\pi k | k \in \mathbb{Z}\}$, а точки из множества  $ P = \{\frac{\pi}{2}+\pi k | k \in \mathbb{Z}\}$ являются полюсами первого порядка (это следует из того, что $cos(z+\frac{\pi}{2}) = -sin(z) \sim -z$ и $cos(z+\frac{3\pi}{2}) = sin(z) \sim z$ при малых $z$)
+\subsection*{$\mathbf{f(z) = th(z)}$}
+Воспользуемся тождеством $tan(iz) = ith(z)$. Пусть $tan(x+iy) = u(x,y)+iv(x,y)$, тогда
+$$tan(i(x+iy)) = u(ix,iy)+iv(ix,iy) = ith(x+iy)$$
+\[ith(x+iy) = \frac{sin(2ix)}{2(sh^2(iy)+cos^2(ix))}+\frac{ ish(2iy)}{2(sh^2(iy)+cos^2(ix))}\]
+\[th(x+iy) = \frac{sh(2x)}{2(ch^2(x)-sin^2(y))}+\frac{ isin(2y)}{2(ch^2(x)-sin^2(y))} = A(x,y) + iB(x,y)\]
+\[A(x,y) = -i u(ix,iy), B(x,y) = -i v(ix,iy)\]
+\begin{equation*}
+\begin{cases}
+\frac{\partial A}{\partial x}(x,y) = -i\frac{\partial u}{\partial x}(ix,iy)i = \frac{\partial u}{\partial x}(ix,iy) = \frac{\partial v}{\partial y}(ix,iy) = -i\frac{\partial v}{\partial y}(ix,iy)i = \frac{\partial B}{\partial y}(x,y) \\
+
+\frac{\partial A}{\partial y}(x,y) = -i\frac{\partial u}{\partial y}(ix,iy)i = \frac{\partial u}{\partial y}(ix,iy) = -\frac{\partial v}{\partial x}(ix,iy) = i\frac{\partial v}{\partial x}(ix,iy)i = -\frac{\partial B}{\partial x}(x,y)
+
+\end{cases}
+\end{equation*}
+Получаем, что функция диф-ма на $\mathbb{C}\backslash \{\frac{i\pi}{2}+i\pi k | k \in \mathbb{Z}\}$, а точки из множества  $ P = \{\frac{i\pi}{2}+i\pi k | k \in \mathbb{Z}\}$ являются полюсами первого порядка (это следует из того, что $ch(z+i\frac{i\pi}{2}) \sim -z$ и  $ch(z+i\frac{3i\pi}{2}) \sim z$ при малых $z$)
+\subsection*{\textbf{Вычисление интеграла по единичному квадрату}}
+
+
+\begin{center}
+	\begin{minipage}[h]{0.3\linewidth}
+		\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+		\draw[step=2cm,gray,very thin,dashed] (0,0) grid (5,5);
+		\draw[thick,->] (0,0) -- (5,0) node[anchor=north west] {Re};
+		\draw[thick,->] (0,0) -- (0,5) node[anchor=south east] {Im};
+		
+		\foreach \yValue in {0.00,0.1,...,1.00}{
+			\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+				(0,0)--(2,0)--(2,2)--(0,2)--(0,0);
+		}
+		\end{tikzpicture}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[h]{0.6\linewidth}
+		$I_{1} = \int_{C}^{}z dz = \int_{0}^{1}xdx + \int_{0}^{1}(1+iy)dy+\int_{1}^{0}(x+i)dx+\int_{1}^{0}iydy = $  
+		$ = \frac{1}{2}+i-\frac{1}{2}-i-\frac{1}{2}+\frac{1}{2} = 0$
+	\end{minipage}
+\end{center}
+
+\section*{Задача 2}
+\subsection*{1 интеграл}
+Рассмотрим интеграл \[ I_{2} = \int_{-\infty}^{+\infty} \frac{dx}{x^6+1}\] для его рассчета проведем контур в верхней полуплоскости в виде дуги окружности.
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.9,0) grid (3.9,5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-0.5) -- (0,5) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(3.5,0) arc (0:180:3.5);
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(-3.5,0)--(3.5,0);
+	}
+
+	\coordinate [label=above:$e^{\frac{i\pi}{6}}$] (A1) at ({1.5*cos(30)},{1.5*sin(30)});
+	\coordinate [label=right:$e^{\frac{i\pi}{2}}$] (A2) at ({1.5*cos(90)},{1.5*sin(90)});
+	\coordinate [label=above:$e^{\frac{5i\pi}{6}}$] (A3) at ({1.5*cos(150)},{1.5*sin(150)});
+
+	\draw[fill,red](A1) circle (1.5pt);
+	\draw[fill,red](A2) circle (1.5pt);
+	\draw[fill,red](A3) circle (1.5pt);
+	\end{tikzpicture}
+\end{center}
+\[\int_{C}^{}\frac{dz}{z^6+1} = I_{2}+I_{R}\]
+Вклад второго слагаемого в интеграле по контуру $\sim \frac{1}{R^5}$, где $R$ - радиус окружности. Т.е при $R \rightarrow +\infty$ можно считать, что интеграл по контуру равен  $I_{2}$. Для подсчета интеграла по контуру воспользуемся основной теоремой о вычетах и вспомогательной теоремой, которая утверждает, что если $f(z) = \frac{g(z)}{h(z)}$ имеет простой полюс в точке $z_{0}$, а функции $g,h$ регулярные в некоторой окрестности $z_{0}$, то верно
+\[\overset{}{\underset{z_{0}}{Res}} f(z) = \frac{g(z_{0})}{h'(z_{0})}\]
+Используя все вместе, получаем:
+\[\int_{-\infty}^{+\infty}\frac{dx}{x^6+1} = 2i\pi\frac{1}{6}(e^{-i\frac{\pi}{6}}+e^{-i\frac{5\pi}{6}}+e^{-i\frac{\pi}{2}}) = 2i\pi\frac{-2i}{6} = \frac{2\pi}{3}\]
+Окончательно:
+\[\int_{-\infty}^{+\infty}\frac{dx}{x^6+1} = \frac{2\pi}{3}\]
+
+\subsection*{2 интеграл}
+Для подсчета интеграла $I_{3}$ используем тот же контур, что и в прошлом пункте.
+\[I_{3}=\int_{-\infty}^{+\infty}\frac{dx}{(x^2+4)^2}\]
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.9,0) grid (3.9,5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-0.5) -- (0,5) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(3.5,0) arc (0:180:3.5);
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-3.5,0)--(3.5,0);
+	}
+	
+	\draw[dashed,thick](0,1.5) circle (7pt);
+	\node at (-.5,1.75) {$C_{0}$};
+	\node at (.5,1.5) {$2i$};
+	
+	\draw[fill,red](0,1.5) circle (1.5pt);
+	\end{tikzpicture}
+\end{center}
+\[\int_{C}^{}\frac{dz}{(z^2+4)^2} = I_{3}+I_{R}\]
+В этот раз честно считаем вычет в токе $2i$.
+$$I_{3} = \int_{-\infty}^{+\infty} \frac{dx}{(x^2+4)^2} = \left\{\begin{array}[c]{ll} \gamma = x -2i \\ d\gamma = dx \end{array}\right\}  = \int_{C_{0}}^{}\frac{d\gamma}{\gamma^2(\gamma+4i)^2} = -\frac{1}{16}\int_{C_{0}}^{}\frac{d\gamma}{\gamma^2(\frac{\gamma}{4i}+1)^2} = $$
+$$ = -\frac{1}{16}\int_{C_{0}}^{}\frac{d\gamma}{\gamma^2}\Bigr(1-\frac{2\gamma}{4i}\Bigl)= \frac{1}{16}\int_{C_{0}}^{}\frac{d\gamma}{2i\gamma} = \frac{2i\pi}{2i\cdot16} = \frac{\pi}{16}$$
+Окончательно:
+$$I_{3} = \int_{-\infty}^{+\infty} \frac{dx}{(x^2+4)^2} = \frac{\pi}{16}$$
+
+\section*{Задача 3}
+\subsection*{1 интеграл}
+Для вычисления интеграла $I_{4}$ заметим, что данный интеграл не зависит он знака $t$. Действительно, если раскрыть экспоненту в синус и косинус, то получим, что интеграл с синусом зануляется в силу нечетности подынтегральной функции. Т.е нам достаточно рассмотреть только один случай.
+$$I_{4}(t) =\int_{-\infty}^{+\infty}\frac{e^{ixt}dx}{(x^4+1)}$$
+Пусть $t>0$, тогда контур необходимо прокладывать через верхнюю полуплоскость, т.к. в ней экспонента убывает, а следовательно при стремелении $R\rightarrow +\infty$ вклад по дуге в общий интеграл по контуру $\rightarrow 0$.
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.9,0) grid (3.9,5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-0.5) -- (0,5) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(3.5,0) arc (0:180:3.5);
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-3.5,0)--(3.5,0);
+	}
+	
+	\coordinate [label=above:$e^{\frac{i\pi}{4}}$] (A1) at ({1.5*cos(45)},{1.5*sin(45)});
+	\coordinate [label=above:$e^{\frac{3i\pi}{4}}$] (A2) at ({1.5*cos(135)},{1.5*sin(135)});
+	
+	\draw[fill,red](A1) circle (1.5pt);
+	\draw[fill,red](A2) circle (1.5pt);
+	\draw[dashed,thick](A1) circle (4pt);
+	\draw[dashed,thick](A2) circle (4pt);
+	
+	\node at ({1.5*cos(45)},{1.5*sin(45)-0.5}) {$C_{0}$};
+	\node at ({1.5*cos(135)},{1.5*sin(135)-0.5}) {$C_{1}$};
+
+	\end{tikzpicture}
+\end{center}
+Все корни знаменателя простые, так что считаем вычеты по формуле с производной.
+\[\int_{-\infty}^{+\infty}\frac{e^{ixt}dx}{x^4+1} = \frac{2i\pi}{4}\Bigl(\frac{e^{iz_{1}t}}{z_{1}^3} + \frac{e^{iz_{2}t}}{z_{2}^3}\Bigr) \text{ где $z_{1} = e^{\frac{i\pi}{4}}$; $z_{2} = e^{\frac{3i\pi}{4}}$} \]
+
+\[ 
+\Bigl(\frac{e^{iz_{1}t}}{z_{1}^3} + \frac{e^{iz_{2}t}}{z_{2}^3}\Bigr) = e^{-\frac{t}{\sqrt{2}}} 
+\Bigl(e^{ \frac{it}{\sqrt{2}}  } e^{-\frac{3i\pi}{4}} + e^{ -\frac{it}{\sqrt{2}}  } e^{-\frac{i\pi}{4}} \Bigr) \text{ пусть $a = \frac{t}{\sqrt{2}}$} \Rightarrow
+\]
+\[
+	\frac{2}{\sqrt{2}}e^{-a}\Bigl(  \frac{-i}{2}(e^{ai}+e^{-ai}) + \frac{i}{2i}(e^{-ai}-e^{ai})  \Bigr)  = \frac{-2i}{\sqrt{2}}e^{-a}(\cos{a}+\sin{a}) \Rightarrow
+\]
+
+\[\int_{-\infty}^{+\infty}\frac{e^{ixt}dx}{x^4+1} =  \frac{2i\pi}{4}\ \frac{-2i}{\sqrt{2}}e^{-a}(\cos{a}+\sin{a}) = \pi e^{\frac{-t}{\sqrt{2}}}sin(t+\frac{\pi}{4}) \text{ при $t>0$} \]
+Но т.к. интеграл не зависит от знака $t$, то окончательный ответ.
+
+\[I_{4}(t) = \int_{-\infty}^{+\infty}\frac{e^{ixt}dx}{x^4+1} = \pi  e^{\frac{-|t|}{\sqrt{2}}}sin(|t|+\frac{\pi}{4}) \]
+\subsection*{2 интеграл}
+В этом пункте мы просто расладываем экспоненту вблизи особенности знаменателя.
+Если $t>0$, контур должен располагаться в верхней полуплоскости, т.к. в таком случае интеграл по дуге экспоненциально убывает с увеличением радиуса окружности. При $t<0$ ситуация обратная.
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.9,0) grid (3.9,5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-0.5) -- (0,5) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(3.5,0) arc (0:180:3.5);
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-3.5,0)--(3.5,0);
+	}
+	
+	\draw[dashed,thick](0,1.5) circle (7pt);
+	\node at (-.5,1.75) {$C_{0}$};
+	\node at (.5,1.5) {$i$};
+	
+	\draw[fill,red](0,1.5) circle (1.5pt);
+	\end{tikzpicture}
+\end{center}
+
+$$\int_{-\infty}^{+\infty} \frac{e^{ixt}dx}{(x-i)^2} = \left\{\begin{array}[c]{ll} \gamma = x -i \\ d\gamma = dx \end{array}\right\} = e^{-t}\int_{C_{0}}^{}\frac{e^{i\gamma t}d\gamma}{\gamma^2} = e^{-t}\int_{C_{0}}\frac{(1+i\gamma t)d\gamma}{\gamma^2} = ite^{-t}\int_{C_{0}}\frac{d\gamma}{\gamma^2} = -2\pi t e^{-t} \text{ при $t>0$}$$
+Когда $t<0$ располащающийся в нижней полуплоскости контур не захватывает особенностей подынтегральной функции, а следовательно интеграл равен $0$.
+Окончательно:
+\[
+I_{5}(t) = \int_{-\infty}^{+\infty} \frac{e^{ixt}dx}{(x-i)^2} = \begin{cases}
+-2\pi t e^{-t} \text{ при $t>0$ } \\
+0 \text{ при $t \leq 0 $ }
+\end{cases}
+\]
+
+\section*{Задача 4}
+Рассмотрим интеграл.
+\[
+I_{6} = \int_{-\infty}^{+\infty} \frac{x^2dx}{\cosh{x}}
+\]
+	Особенностей знаменателя много, очень много $P = \{\frac{i\pi}{2}+i\pi k| k \in \mathbb{Z}\}$, в таком случае возьмем хитрый контур, а именно:
+	\begin{center}
+		\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+		
+		\draw[step=2cm,gray,very thin,dashed] (-3.9,0) grid (3.9,5);
+		\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+		\draw[thick,->] (0,-0.5) -- (0,5) node[anchor=south east] {Im};
+		
+		\foreach \yValue in {0.05,0.1,...,1.0}{
+			\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(4,2)--(-4,2);
+			\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(-4,0)--(4,0);
+		}
+		
+		\draw[dashed,thick](0,1) circle (7pt);
+		\node at (-.5,1.25) {$C_{0}$};
+		\node at (.5,0.75) {$\frac{i\pi}{2}$};
+		
+		\node at (.5,2.25) {$i\pi$};
+		\node at (3.5,2.25) {$C$};
+		
+		\draw[fill,red](0,1) circle (1.5pt);
+		\end{tikzpicture}
+	\end{center}
+\[\int_{C}\frac{x^2dx}{\cosh(x)} = \int_{-\infty}^{+\infty}\frac{x^2dx}{\cosh(x)} + \int_{+\infty+i\pi}^{-\infty+i\pi}\frac{x^2dx}{\cosh(x)}\ = I_{6}-\int_{-\infty}^{+\infty}\frac{(x+i\pi)^2dx}{\cosh(x+i\pi)} = \]
+\[
+= I_{6} + \int_{-\infty}^{+\infty}\frac{(x+i\pi)^2dx}{\cosh(x)} = I_{6}+\int_{-\infty}^{+\infty}\frac{x^2dx}{\cosh(x)}+\int_{-\infty}^{+\infty}\frac{2i\pi x dx}{\cosh(x)}-\pi^2\int_{-\infty}^{+\infty}\frac{dx}{\cosh(x)} 
+\]
+Первый интерал, очевидно, равен $I_{6}$. Второй интеграл равен $0$ в силу нечетности подынтегральной функции. Третий интеграл был вычислен на лекции. $$\int_{-\infty}^{+\infty}\frac{dx}{\cosh(x)} = \pi$$
+Все вместе дает:
+\[\int_{C}\frac{x^2dx}{\cosh(x)} = 2I_{6} - \pi^3\]
+Точка $\frac{i\pi}{2}$ является простым полюсом, а значит используем формулу с производной.
+\[2I_{6} - \pi^3 = 2i\pi\frac{(\frac{i\pi}{2})^2}{\sinh(\frac{i\pi}{2})} = -\frac{\pi^3}{2} \Leftrightarrow I_{6} = \frac{\pi^3}{4}\]
+Окончательно:
+\[\int_{-\infty}^{+\infty} \frac{x^2dx}{\cosh{x}} = \frac{\pi^3}{4}\]
+\section*{Задача 5}
+Необходимо вычислить сумму:
+\[S(a,b) = \sum_{n=-\infty}^{+\infty}\frac{1}{2i\pi n+a}\frac{1}{2i\pi n+b} \text{ где $a,b \in \mathbb{R}$}\]
+Для этого посчитаем интеграл:
+\[ \int_{C_{N}}\frac{\pi\cot(\pi z)dz}{(2i\pi z+a)(2i\pi z+b)}\]
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	%\draw[step=0.5cm,gray,very thin,dashed] (-4,-4) grid (4,4);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-4) -- (0,4) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.025,0.05,...,1.0}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-3,-3)--(3,-3) -- (3,3) -- (-3,3) -- (-3,-3);
+	}
+	
+	\draw[fill,blue](0,3) circle (3pt);
+	\node at (1,3.3) {$i(N+\frac{1}{2})$};
+	
+	\draw[fill,blue](0,-3) circle (3pt);
+	\node at (1,-3.5) {$-i(N+\frac{1}{2})$};
+	
+	
+	\draw[fill,blue](3,0) circle (3pt);
+	\node at (4,0.3) {$(N+\frac{1}{2})$};
+	
+	\draw[fill,blue](-3,0) circle (3pt);
+	\node at (-4,0.3) {$-(N+\frac{1}{2})$};
+	
+	\end{tikzpicture}
+\end{center}
+Произведем оценку $cot(\pi z)$ на контуре $C_{N}$.
+\[z = \pm(N+\frac{1}{2})+iy \Rightarrow |\cot(\pi z)|=|\cot(\pm\frac{\pi}{2}+i\pi y)| = |\tan(i\pi y)| = |i\th(\pi y)| \leq 1\]
+
+\[z = x \pm i(N+\frac{1}{2}) = x+iy \Rightarrow |\cot(\pi z)| = \Bigl|\frac{  e^{i\pi x - \pi y} + e^{-i\pi x + \pi y}}{e^{i\pi x - \pi y} - e^{-i\pi x + \pi y}}\Bigr| \leq \frac{e^{-\pi y}+e^{\pi y}}{|e^{-\pi y}-e^{\pi y}|} \Rightarrow \]
+\Large{$$ \begin{cases}
+y>\frac{1}{2} \Rightarrow \frac{e^{-\pi y}+e^{\pi y}}{|e^{-\pi y}-e^{\pi y}|} = \frac{ e^{\pi y}+e^{-\pi y} }{e^{\pi y}-e^{-\pi y}} = \frac{1+e^{-2\pi y}}{1-e^{-2\pi y}} \leq \frac{1+e^{-\pi}}{1-e^{-\pi}} \\
+y < -\frac{1}{2} \Rightarrow \frac{e^{-\pi y}+e^{\pi y}}{|e^{-\pi y}-e^{\pi y}|} = \frac{ e^{\pi y}+e^{-\pi y} }{e^{-\pi y}-e^{\pi y}} = \frac{1+e^{2\pi y}}{1-e^{2\pi y}} \leq \frac{1+e^{-\pi}}{1-e^{-\pi}}
+\end{cases}$$}\normalsize
+Таким образом, мы показали, что существует число $M$, которое не зависит от $N$ и ограничивает $|\pi\cot(\pi z)|$ на контуре $C_{N}$. Это дает оценку:
+\[\Bigl| \int_{C_{N}}\frac{\pi\cot(\pi z)dz}{(2i\pi z+a)(2i\pi z+b)} \Bigr| \leq \frac{4M(2N+1)}{4\pi^2N^2} \rightarrow 0 , N\rightarrow +\infty\]
+Но с другой стороны, все полюса подынтегральной функции являются простыми, а это значит, что можно записать следующее тождество:
+\[2i\pi \Bigl( \sum_{n=-\infty}^{+\infty} \frac{\cos(\pi n)\pi}{\cos(\pi n)\pi}\frac{1}{(2i\pi n+a)(2i\pi n+b)} + \frac{\pi \cot(\pi \frac{ia}{2\pi})}{2i\pi(b-a)} + \frac{\pi \cot(\pi \frac{ib}{2\pi})}{2i\pi(a-b)} \Bigr) = 0 \Leftrightarrow \]
+\[S(a,b) = \frac{\pi}{2i\pi(a-b)}\Bigl(i\coth\Bigl(\frac{b}{2}\Bigr)-i\coth\Bigl(\frac{a}{2}\Bigr)\Bigr)\]
+Окончательно:
+\[S(a,b)=\frac{1}{2(a-b)}\Bigl(\coth\Bigl(\frac{b}{2}\Bigr)-\coth\Bigl(\frac{a}{2}\Bigr)\Bigr)\]
+\section*{Задача 6}
+Для начала рассмотрим поведение одного электрона.
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	%\draw[step=0.5cm,gray,very thin,dashed] (-4,-4) grid (4,4);
+	%\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	%\draw[thick,->] (0,-4) -- (0,4) node[anchor=south east] {Im};
+	
+	\foreach \x in {-1,0,...,20}{
+		\draw ({0.1*\x},{cos(\x*90)*0.25})--({0.1*(\x+1)},{cos(\x*90+90))*0.25});
+	}
+	\draw[fill] (2.1,0) circle(4pt);
+	\draw[very thick] (-0.1,0) -- (-0.2,-0.2)--(0,-0.2)--(-0.1,0);
+	\node at (2.1,-0.4) {$-e$};
+	
+	\draw[thick,->] (-4,-1) -- (4,-1) node[anchor=north west] {$\chi$};
+	\draw[thick] (-0.1,-1.1) -- (-0.1,-0.9); \node at (-0.1,-1.3) {$0$};
+	\draw[thick] (2.1,-1.1) -- (2.1,-0.9); \node at (2.1,-1.3) {$x$};
+	
+	\draw[thick,->] (-1,1) -- (1,1);
+	\node at (0,1.5) {$\overrightarrow{E}(t)$};
+	
+	\end{tikzpicture}
+\end{center}
+Запишем систему из уравнения движения электрона и определения плотности тока.
+\[
+\begin{cases}
+mx'' = -kx - \frac{m}{\tau}x'-eE\\
+j = -nev
+\end{cases}
+\Rightarrow 
+\begin{cases}
+mx''' = -kx' - \frac{m}{\tau}x'' - eE'\\
+j = -nev
+\end{cases}
+\Rightarrow 
+\begin{cases}
+mv'' = -kv - \frac{m}{\tau}v' - eE' \\
+j = -nev
+\end{cases}
+\Rightarrow
+\]
+
+\[
+j'' + j\frac{k}{m}+\frac{1}{\tau}j'+\frac{e^2n}{m}E' = 0 \left\{\begin{array}[c]{ll} \omega_0^2 = \frac{k}{m} \\ 2\beta = \frac{1}{\tau} \\ A = -\frac{e^2n}{m} \end{array}\right\} j''+2\beta j' +\omega_0^2 j = AE'
+\]
+
+Воспользуемся преобразованием фурье для нахождения связи между $\widehat{j}(\omega)$ и $\widehat{E}(\omega)$.
+\[j(t) = \int_{-\infty}^{+\infty}\frac{d\omega}{2\pi}\widehat{j}(\omega)e^{-i\omega t} \text{ и } E(t) = \int_{-\infty}^{+\infty}\frac{d\omega}{2\pi}\widehat{E}(\omega)e^{-i\omega t} \]
+Дифференцирование по времени данных величин и сокращение\footnote{После формального дифференцирования можно избавиться от интегралов след. образом: необходимо домножить на еще одну экспоненту $e^{i\Omega t}$ и проинтегрировать по $t$, этот ход даст нам $\delta(\Omega - \omega)$ вместо экспонент. Дальшейшее интегрирование по $\omega$ даст нам значение соответствующих производных фурье-образов в точке $\Omega$ .} интегралов дает нам следующее выражение.
+\[-\omega^2 \widehat{j} - 2i\beta\omega \widehat{j} + \omega_{0}^2\widehat{j} = -i\omega A\widehat{E} \Leftrightarrow \widehat{j}(\omega) = \frac{i\omega A \widehat{E}}{\omega ^2 +2i\beta\omega - \omega_0^2} \Rightarrow \]
+\[\widehat{\sigma}(\omega) = \frac{i\omega A}{\omega ^2 +2i\beta\omega - \omega_0^2} \]
+Из выражения для $\sigma$ понятно, что при нулевой частоте (что соответствует стационарному полю $E$) проводимость 0, а значит и тока нет. При резонансе $\omega = \omega_0 $, а значит:
+\[\sigma_{\text{рез}} = \frac{iA}{2i\beta} = -\frac{e^2n\tau}{m}\]
+Обратным преобразованием фурье найдем функцию отклика $\sigma(t)$.
+\[\sigma(t) = \frac{Ai}{2\pi} \int_{-\infty}^{+\infty}\frac{\omega e^{-i\omega t} d\omega}{\omega^2 +2i\beta\omega - \omega_0^2} \]
+Для начала проанализируем особенности знаменателя. $\omega_{1,2} = -i\beta \pm \sqrt{\omega_0^2-\beta^2} = -i\beta \pm \gamma$ (первый с плюсом)
+\[
+\begin{cases}
+\beta \leq\omega_0 \Rightarrow \text{оба корня лежат в нижней полуплоскости} \\
+\beta > \omega_0 \Rightarrow \omega = i\beta(-1 \pm \sqrt{1-\frac{\omega_0^2}{\beta^2}}) \Rightarrow \text{оба корня лежат в нижней полуплоскости}
+\end{cases}
+\]
+При подсчете интеграла в случае $t<0$ контур нужно прокладывать в верхней полуплоскости, но т.к особенностей в таком контуре не будет, то и интеграл будет нулевым. Во втором сулчае ($t>0$) контур располагается в нижней полуплоскости, причем все полюса функции являются простыми, тогда значение интеграла:
+\[\int_{-\infty}^{+\infty}\frac{\omega e^{-i\omega t} d\omega}{\omega^2 +2i\beta\omega - \omega_0^2} = -2i\pi\Bigl(\frac{\omega_{1}e^{-i\omega_{1}t}}{\omega_{1}-\omega_{2}} + \frac{\omega_{2}e^{-i\omega_{2}t}}{\omega_{2}-\omega_{1}} \Bigr) =
+ -\frac{2i\pi}{2\gamma}\Bigl( 
+ (\gamma - i\beta)e^{-it(\gamma - i\beta)} + (\gamma + i\beta)e^{-it(-\gamma - i\beta)}
+ \Bigr) = \]
+\[
+	= -\frac{i\pi e^{-t\beta}}{\gamma}\Bigl(\gamma(e^{-it\gamma}+e^{it\gamma})+i\beta(e^{it\gamma}-e^{-it\gamma})\Bigr) = -\frac{2i\pi e^{-t\beta}}{\gamma}\Bigl(\gamma\cos(\gamma t)-\beta\sin(\gamma t)\Bigr) \Rightarrow
+\]
+\[ \sigma (t) = \frac{Ae^{-t\beta}}{\gamma}\Bigl(\gamma\cos(\gamma t)-\beta\sin(\gamma t)\Bigr) \text{ при $t>0$}\]
+При $t = 0$ интеграл расходится.
+Окончательно:
+\[ \sigma (t) = \frac{Ae^{-t\beta}}{\gamma}\Bigl(\gamma\cos(\gamma t)-\beta\sin(\gamma t)\Bigr) \text{ при $t>0$}\]
+\section*{Задача 7}
+
+\end{document}
+
+
