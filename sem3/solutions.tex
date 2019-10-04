@@ -1,0 +1,257 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{ucs} 
+\usepackage{amsmath}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc} % Включаем поддержку UTF8  
+\usepackage[russian]{babel}  % Включаем пакет для поддержки русского языка  
+\usepackage{amsfonts}
+\usepackage[left=1.5cm,right=1.5cm]{geometry}
+\usepackage{amsmath}
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\title{Задачи к 3 лекции}  
+\author{Нечитаев Дмитрий}
+
+\begin{document} 
+	\maketitle
+	\section*{Задача 1}
+	\subsection*{Первый интеграл}
+	Необходимо вычислить интеграл:
+	\[I_1(n,\alpha) = \int_{0}^{\infty}\frac{z^\alpha dz}{(1+z^2)^n} \text{ при $n = 1,2,3$}\]
+	$I_1(1,\alpha)$ сходится при $\alpha \in (-1;1)$ причем, интегрирование по частям дает нам тождества.
+	\[
+		\int_{0}^{\infty}\frac{z^\alpha dz}{1+z^2} = \frac{2}{\alpha+1} \int_{0}^{\infty}\frac{z^{\alpha+2} dz}{(1+z^2)^2} 
+		\text{ и }
+		\int_{0}^{\infty}\frac{z^\alpha dz}{(1+z^2)^2} = \frac{2}{\alpha+1} \int_{0}^{\infty}\frac{z^{\alpha+2} dz}{(1+z^2)^3}
+		\label{int by parts_1:ref}
+		\eqno (1.1)
+	\]
+	Для вычисления интеграла $I_1(1,\alpha)$. Построим контур $C$ на комплексной плоскости с разрезом.
+	
+	
+	\begin{center}
+		\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+		
+		\draw[step=2cm,gray,very thin,dashed] (-3.5,-3.5) grid (3.5,3.5);
+		\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+		\draw[thick,->] (0,-3.5) -- (0,3.7) node[anchor=south east] {Im};
+		
+		\foreach \yValue in {0.00,0.1,...,1.00}{
+			\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(0,{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) arc (5:355:3) -- ({3*cos(5)},{-3*sin(5)}) -- (0,{-3*sin(5)}) -- (0,{-3*sin(5)}) arc(270:90:{3*sin(5)});
+		}
+		
+		\draw[fill,color=red!60,pattern=north east lines] 
+			({3*cos(5)},{-2*sin(5)}) -- (0,{-2*sin(5)}) -- (0,{-2*sin(5)}) arc(270:90:{2*sin(5)}) -- (0,{2*sin(5)}) -- ({3*cos(5)},{2*sin(5)}) -- ({3*cos(5)},{-2*sin(5)});
+		
+		
+		\coordinate [label=right:$i$] (A1) at (0,1);
+		\coordinate [label=right:$-i$] (A2) at (0,-1);
+		
+		\draw[fill,red](A1) circle (1.5pt);
+		\draw[fill,red](A2) circle (1.5pt);
+		\end{tikzpicture}
+	\end{center}
+
+Разбиваем интеграл по контуру на три части: $I_{+} + I_{-} + I_{R}$.
+
+\[ \int_{C} \frac{z^\alpha dz}{1+z^2} = \int_{0+0i}^{+\infty+0i}\frac{z^\alpha dz}{1+z^2} + \int_{+\infty-0i}^{0-0i}\frac{z^\alpha dz}{1+z^2} + \int_{C_{R}}\frac{z^\alpha dz}{1+z^2} \text{ где $C_R$ - дуга окружности}\]
+Последний интеграл стремится к нулю, при устремлении $R$ в бесконечность. Осталось только разобраться со вторым слагаемым. Для этого рассмотрим как связаны $(x+0i)^\alpha$ и $(x-0i)^\alpha$ ($x \in \mathbb{R}$). Тут необходимо воспользоваться представлением $z^{\alpha} = e^{\alpha \ln(z)}$. В таком случае становится понятно, что т.к. $ln(x-0i) = ln(x+0i) + 2i\pi$, то $(x-0i)^{\alpha} = (x+i0)^{\alpha}e^{2i\pi}$. Получаем:
+\[ (1-e^{2i\pi\alpha})\int_{0+0i}^{+\infty+0i}\frac{z^\alpha dz}{1+z^2} = 2i\pi \Bigl( \overset{}{\underset{z = i}{Res}} \frac{z^\alpha}{1+z^2} + \overset{}{\underset{z = i}{Res}} \frac{z^\alpha }{1+z^2} \Bigl) = i\pi(i^{\alpha-1} + (-i)^{\alpha-1}) = \]
+\[ = \left\{\begin{array}[c]{ll} \beta = \alpha - 1  \\ i^{\beta} = e^{\beta \ln(i) = e^{\beta i\frac{\pi}{2}}} \\ (-i)^\beta = e^{i\frac{3\pi}{2}} \end{array}\right\} = i\pi(e^{\beta i \frac{\pi}{2}} + e^{\beta i \frac{3\pi}{2}}) = \left\{\begin{array}[c]{ll} \gamma = \beta \frac{\pi}{2} \end{array}\right\} = i\pi(e^\gamma + e^{3\gamma}) \Rightarrow \]
+\[ \int_{0}^{+\infty} \frac{z^\alpha dz}{1+z^2} = \frac{i\pi e^ {2\gamma}(e^{-\gamma}+ e^{\gamma})}{e^{i\pi\alpha}(e^{-i\pi\alpha}-e^{i\pi\alpha})} = \frac{i\pi e^{i\pi(\alpha-1)}(e^{i\gamma}+e^{-i\gamma})}{e^{i\pi\alpha}(e^{-i\pi\alpha}-e^{i\pi\alpha})} = \frac{\pi\cos(\gamma)}{\sin(\pi\alpha)} = \frac{\pi \sin(\frac{\pi\alpha}{2})}{\sin(\pi\alpha)} = \frac{\pi}{2\cos(\frac{\pi\alpha}{2})}\]
+С учетом формул (1.1) получаем окончательно:
+\[\boxed{I_{1}(1,\alpha) = \frac{\pi}{2\cos(\frac{\pi\alpha}{2})}} \]
+\[\boxed{I_{1}(2,\alpha) =\frac{\pi(1-\alpha)}{4\cos(\frac{\pi\alpha}{2})}}\]
+\[\boxed{I_{1}(3,\alpha) = \frac{\pi(3-\alpha)(1-\alpha)}{8\cos(\frac{\pi\alpha}{2})}}\]
+
+\pagebreak
+\subsection*{Второй интеграл}
+Необходимо вычислить интеграл:
+\[I_2(n,\alpha) = \int_{0}^{\infty}\frac{z^\alpha dz}{(1+z^3)^n} \text{ при $n = 1,2,3$}\]
+$I_2(1,\alpha)$ сходится при $\alpha \in (-1;2)$ причем, интегрирование по частям дает нам тождества.
+\[
+\int_{0}^{\infty}\frac{z^\alpha dz}{1+z^3} = \frac{3}{\alpha+1} \int_{0}^{\infty}\frac{z^{\alpha+3} dz}{(1+z^3)^2} 
+\text{ и }
+\int_{0}^{\infty}\frac{z^\alpha dz}{(1+z^3)^2} = \frac{3}{\alpha+1} \int_{0}^{\infty}\frac{z^{\alpha+3} dz}{(1+z^3)^3}
+\label{int by parts_2:ref}
+\eqno (2.1)
+\]
+Для вычисления интеграла $I_2(1,\alpha)$. Построим контур $C$ на комплексной плоскости с разрезом.
+
+
+
+\def\pCir#1#2{({#1*cos(#2)},{#1*sin(#2)})}
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.5,-3.5) grid (3.5,3.5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-3.5) -- (0,3.7) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(0,{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) arc (5:355:3) -- ({3*cos(5)},{-3*sin(5)}) -- (0,{-3*sin(5)}) -- (0,{-3*sin(5)}) arc(270:90:{3*sin(5)});
+	}
+	
+	\draw[fill,color=red!60,pattern=north east lines] 
+	({3*cos(5)},{-2*sin(5)}) -- (0,{-2*sin(5)}) -- (0,{-2*sin(5)}) arc(270:90:{2*sin(5)}) -- (0,{2*sin(5)}) -- ({3*cos(5)},{2*sin(5)}) -- ({3*cos(5)},{-2*sin(5)});
+
+	
+	%\coordinate [label=right:$i$] at (0,1);
+	%\coordinate [label=right:$-i$]at (0,-1);
+	
+	\foreach \angel in {-60,60,...,420}
+	{
+		\draw[fill,red] \pCir{1}{\angel} circle (1.5pt);
+	}
+
+	\node at \pCir{1.5}{60} {$e^\frac{i\pi}{3}$};
+	\node at (-1.0,0.25) {$-1$};
+	\node at \pCir{1.5}{-60} {$e^\frac{5i\pi}{3}$};
+
+	\end{tikzpicture}
+\end{center}
+
+Разбиваем интеграл по контуру на три части: $I_{+} + I_{-} + I_{R}$.	
+
+\[ \int_{C} \frac{z^\alpha dz}{1+z^3} = \int_{0+0i}^{+\infty+0i}\frac{z^\alpha dz}{1+z^3} + \int_{+\infty-0i}^{0-0i}\frac{z^\alpha dz}{1+z^3} + \int_{C_{R}}\frac{z^\alpha dz}{1+z^3} \text{ где $C_R$ - дуга окружности}\]
+Последний интеграл стремится к нулю, при устремлении $R$ в бесконечность. Осталось только разобраться со вторым слагаемым. Для этого рассмотрим как связаны $(x+0i)^\alpha$ и $(x-0i)^\alpha$ ($x \in \mathbb{R}$). Тут необходимо воспользоваться представлением $z^{\alpha} = e^{\alpha \ln(z)}$. В таком случае становится понятно, что т.к. $ln(x-0i) = ln(x+0i) + 2i\pi$, то $(x-0i)^{\alpha} = (x+i0)^{\alpha}e^{2i\pi}$. Получаем:
+\[ (1-e^{2i\pi\alpha})\int_{0+0i}^{+\infty+0i}\frac{z^\alpha dz}{1+z^3} = 2i\pi \Bigl( \frac{e^{\frac{i\pi\alpha}{3}}}{3e^{\frac{2i\pi}{3}}} + \frac{e^{i\pi\alpha}}{3e^{2i\pi}} + \frac{e^{\frac{5i\pi\alpha}{3}}}{3e^{\frac{10i\pi}{3}}}) = 
+\left\{\begin{array}[c]{ll} \gamma = \frac{\alpha\pi}{3} \end{array}\right\} 
+= \frac{i\pi}{3}\Bigl(  e^{i\gamma}(-1-i\sqrt{3}) + 2e^{3i\gamma} + e^{5i\gamma}(-1+i\sqrt{3})  \Bigr) = \]
+\[
+= \frac{2i\pi e^{3i\gamma}}{3}\Bigl(  -\cos(2\gamma) - \sqrt{3}\sin(2\gamma) +1 \Bigr) = \frac{2i\pi e^{3i\gamma}}{3}\Bigl(1-2cos\Bigl(2\gamma - \frac{\pi}{3}\Bigr) \Bigr) \Rightarrow
+\]
+\[I_2(1,\alpha) = \frac{2i\pi e^{i\pi\alpha}}{3e^{i\pi\alpha}(e^{-i\pi\alpha}-e^{i\pi\alpha})}\Bigl(1-2cos\Bigl(2\gamma - \frac{\pi}{3}\Bigr) \Bigr) = \frac{\pi(2\cos(\frac{2}{3}\pi\alpha-\frac{\pi}{3})-1)}{3\sin(\pi\alpha)}\]
+С учетом формул (2.1) получаем окончательно:
+\[\boxed{I_2(1,\alpha) = \frac{\pi(2\cos(\frac{2}{3}\pi\alpha-\frac{\pi}{3})-1)}{3\sin(\pi\alpha)}}\]
+\[\boxed{I_2(2,\alpha) = \frac{\pi(2-\alpha)(2\cos(\frac{2}{3}\pi\alpha-\frac{\pi}{3})-1)}{9\sin(\pi\alpha)}}\]
+\[\boxed{I_2(3,\alpha) = \frac{(5-\alpha)(2-\alpha)(2\cos(\frac{2}{3}\pi\alpha-\frac{\pi}{3})-1)}{27\sin(\pi\alpha)}}\]
+\pagebreak
+\section*{Задача 2}
+Вычислим интеграл:
+\[I_3(\alpha,n) = \int_{0}^{+\infty}\frac{z^\alpha \ln^n(z) dz}{1+z^2} \text{при $n = 1,2$}\]
+Можно заметить, что дифференцирование по параметру $\alpha$ интеграла $I_1(1,\alpha)$ даст нам ответ.
+\[I_3(\alpha,1) = \frac{\partial I_1(1,\alpha)}{\partial \alpha} = \frac{\pi^2 \sin(\frac{\pi\alpha}{2})}{4\cos^2(\frac{\pi\alpha}{4})}\]
+\[I_3(\alpha,2) = \frac{\partial^2 I_1(1,\alpha)}{\partial \alpha^2} = \frac{\pi^3 }{8\cos(\frac{\pi\alpha}{2})} \Bigl(2\tan^2\Bigl(\frac{\pi\alpha}{2}\Bigr)+1\Bigr)\]
+Теперь прямыми вычислениями найдем первый интеграл, а затем сравним ответы. Для подсчета $I_3(\alpha,1)$ проведем в комплексной плоскости контур, представленный на рисунке.
+
+\def\pCir#1#2{({#1*cos(#2)},{#1*sin(#2)})}
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-3.5,-0.5) grid (3.5,3.5);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-0.5) -- (0,3.7) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-{3*cos(5)},{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) -- ({3*cos(5)},{3*sin(5)}) arc (5:175:3);
+	}
+	
+	\draw[fill,color=red!60,pattern=north east lines] 
+	({3*cos(5)},{-2*sin(5)}) -- (0,{-2*sin(5)}) -- (0,{-2*sin(5)}) arc(270:90:{2*sin(5)}) -- (0,{2*sin(5)}) -- ({3*cos(5)},{2*sin(5)}) -- ({3*cos(5)},{-2*sin(5)});
+	
+	
+	%\coordinate [label=right:$i$] at (0,1);
+	%\coordinate [label=right:$-i$]at (0,-1);
+
+	\draw[fill,red] \pCir{1}{90} circle (1.5pt);
+	
+	\node at \pCir{1}{70} {$i$};
+	
+	\end{tikzpicture}
+\end{center}
+
+\[\int_{C}\frac{z^\alpha \ln(z)}{1+z^2}dz = \int_{-\infty}^{0}\frac{z^\alpha \ln(z)}{1+z^2}dz + \int_{0}^{+\infty}\frac{z^\alpha \ln(z)}{1+z^2}dz + \int_{C_R}\frac{z^\alpha \ln(z)}{1+z^2}dz \text{ где $C_R$ - дуга окружности} \eqno (1)\]
+При устремлении $R$ в бесконечность, последний интеграл стремится к нулю (это следует из сходимости интеграла при $|\alpha|<1 $). Осталось только разобраться с интегралом по отрицательной полуоси. Для этого воспользуемся тождествами.
+\[\ln(-x) = \ln(x) + i(arg(-x)-arg(1)) = \ln(x) + i\pi \text{, где $x > 0$}\]
+\[(-x)^\alpha = e^{i\pi\alpha}x^\alpha \text{, где $x > 0$}\]
+Тогда интеграл по отрицательной полуоси преобразуется следующим оразом:
+\[ \int_{-\infty}^{0}\frac{z^\alpha \ln(z)}{1+z^2}dz = - e^{i\pi\alpha} \int_{+\infty}^{0}\frac{z^\alpha (\ln(z)+i\pi)}{1+z^2}dz = e^{i\pi\alpha} \int_{0}^{+\infty}\frac{z^\alpha (\ln(z)+i\pi)}{1+z^2}dz = e^{i\pi\alpha}I_3(1,\alpha) + e^{i\pi\alpha}i\pi I_1(\alpha,1)\]
+Подставляем все в выражение (1) и применяем теорему о вычетах.
+\[(1+e^{i\pi\alpha})I_3(1,\alpha) + e^{i\pi\alpha}\frac{i\pi^2}{2\cos(\frac{\pi\alpha}{2})} = 2i\pi \frac{i^\alpha \ln(i)}{2i} = \pi e^{\frac{i\pi\alpha}{2}}\frac{i\pi}{2} \Leftrightarrow \]
+\[(1+e^{i\pi\alpha})I_3(1,\alpha) = e^{\frac{i\pi\alpha}{2}}\frac{i\pi^2}{2\cos(\frac{\pi\alpha}{2})}\Bigl(\cos(\frac{\pi\alpha}{2}) - e ^{\frac{\pi\alpha}{2}}\Bigr) = e^{\frac{i\pi\alpha}{2}}\frac{i\pi^2}{2\cos(\frac{\pi\alpha}{2})}\Bigl(\cos(\frac{\pi\alpha}{2}) - \cos(\frac{\pi\alpha}{2}) - i\sin(\frac{\pi\alpha}{2})\Bigr) \Leftrightarrow \]
+\[e^{i\pi\alpha/2}(e^{-i\pi\alpha/2}+e^{i\pi\alpha/2})I_3(1,\alpha) = e^{i\pi\alpha/2}\frac{\pi^2 \sin(\frac{\pi\alpha}{2}) }{2\cos(\frac{\pi\alpha}{2})} \Leftrightarrow\]
+\[I_3(1,\alpha) = \frac{\pi^2 \sin(\frac{\pi\alpha}{2})}{4\cos^2(\frac{\pi\alpha}{2})}\]
+При стремелении $\alpha \rightarrow 0$ получаем, что $I_3(1,\alpha) \rightarrow 0$, что согласуется с результатом, который был получен на лекции.
+\[\int_{0}^{+\infty}\frac{\ln(z)}{a^2+z^2}dz = \frac{\pi\ln(a)}{2a} \text{, где $a > 0$}\]
+Окончательно:
+
+\[
+\boxed{	
+I_3(\alpha,1) = \frac{\pi^2 \sin(\frac{\pi\alpha}{2})}{4\cos^2(\frac{\pi\alpha}{4})}
+}
+\]
+\[
+\boxed{	
+I_3(\alpha,2) = \frac{\pi^3 }{8\cos(\frac{\pi\alpha}{2})}(2\tan^2(\frac{\pi\alpha}{2})+1)
+}
+\]
+
+\section*{Задача 3}
+Вычислим интеграл:
+\[
+I = \int_{-1}^{1}\frac{(1+z)^{1/4}(1-z)^{3/4}}{1+z} dz = \int_{-1}^{1} \Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} dz
+\]
+Замена $t^4 = \frac{1-z}{1+z}$ позволяет вычислить интеграл классическими методами, но мы воспользуемся ТФКП. Для этого в комплексной плоскости с разрезом проведем контур, представленный на рисунке.
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=2cm,gray,very thin,dashed] (-2.5,-2.5) grid (2.5,2.5);
+	\draw[thick,->] (-3,0) -- (3,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-2) -- (0,2) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.00,0.1,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(0,0.5)--(2,0.5) -- (2,0.5) arc(90:-90:0.5) -- (-2,-0.5) -- (-2,-0.5) arc(270:90:0.5) -- (0,0.5);
+	}
+	
+	\draw[fill,color=red!60,pattern=north east lines]
+	(0,0.25)--(2,0.25) -- (2,0.25) arc(90:-90:0.25) -- (-2,-0.25) -- (-2,-0.25) arc(270:90:0.25) -- (0,0.25);
+	
+	
+	
+	\draw[fill,red] \pCir{2}{0} circle (2pt);
+	
+	\coordinate [label=right:$1$] (A1) at (2,-0.75);
+	
+	\draw[fill,red] \pCir{2}{180} circle (2pt);
+	
+	\coordinate [label=left:$-1$] (A1) at (-2,-0.75);
+	
+	\end{tikzpicture}
+\end{center}
+
+Теперь разберемся с подынтегральной функцией. Для этого определим $\ln(\frac{1-z}{1+z})$ в комплексной плоскости с разрезом:
+\[
+f(z) = \ln\Bigl(\frac{1-z}{1+z}\Bigr) = \ln\Bigl(\frac{1-z_0}{1+z_0}\Bigr) + \int_{\Gamma(z_0 \rightarrow z)} \frac{dz}{z-1} - \int_{\Gamma(z_0 \rightarrow z)} \frac{dz}{z+1} \eqno (1)\]
+Пусть функция $f(z)$ на верхнем берегу разреза совпадает с функцией, определенной на $(-1;1)$, тогда если в определение (1) подставить $z_0 = x+i0$, то можно получить, что $f(x-i0) = f(x+i0) - 2i\pi$. Из этого следует, что интеграл по контуру можно переписать в следующем виде:
+\[\int_{C} \Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} dz = \int_{-1+i0}^{1+i0}\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4}dz +\int_{1-i0}^{-1-i0}\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} dz = \int_{-1+i0}^{1+i0}\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} - e^{-\frac{6i\pi}{4}}\int_{-1+i0}^{1+i0}\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4}dz\]
+\[\Leftrightarrow \int_{C}\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} dz = I\cdot(1-i) \eqno(2)\]
+Для вычисление интеграла по контуру необходимо найти вычет функции на бесконечности. Получить этот вычет можно разложения подынтегральной функции по степеням $\frac{1}{z}$. Проще всего считать это разложение в том случае, когда $z \rightarrow +\infty + i0$. В определении (1) распишем 2 интеграла по аналогии с логарифмом от комплексной функции:
+\[f(z) = \ln\Bigl(\frac{1-z_0}{1+z_0}\Bigr) + \ln(|z-1|)-\ln(|z+1|) + i\Bigr(\arg(z-1) - \arg(z_0-1)\Bigl) - i\Bigr(\arg(z+1) - \arg(z_0+1)\Bigl)\]
+Пусть $z_0 = 0 + i0$, а $z \rightarrow +\infty+i0$ тогда:
+\[f(z) = \ln\Bigl(\frac{z-1}{z+1}\Bigr) + i(0-\pi) - i(0-0) = \ln\Bigl(\frac{z-1}{z+1}\Bigr) - i\pi \Rightarrow \]
+\[\Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} = e^{-i\pi\frac{3}{4}}(1-z^{-1})^{3/4}(1+z^{-1})^{-3/4} = e^{-i\pi\frac{3}{4}}(1-\frac{3}{2z} + ...) \Rightarrow \overset{}{\underset{z = \infty}{Res}} \Bigl(\frac{1-z}{1+z}\Bigr)^{3/4} = -\frac{3}{2} e^{-i\pi\frac{3}{4}} \]
+Важно заметить, что изначальный контур ориентирован отрицательно, а это значит, что выражение (2) перепишется в виде:
+\[2i\pi\frac{3}{2} e^{-i\pi\frac{3}{4}} = I\cdot(\frac{1}{\sqrt{2}}-\frac{i}{\sqrt{2}})\sqrt{2} \Leftrightarrow 3i\pi e^{-i\pi\frac{3}{4}} = I\sqrt{2}e^{-i\pi\frac{1}{4}} \Leftrightarrow 3e^{i\pi/2}\pi e^{-i\pi/2} = I\sqrt{2} \Leftrightarrow \]
+\[I = \frac{3\pi}{\sqrt{2}}\]
+Окончательно:
+\[
+\boxed{	
+	I = \frac{3\pi}{\sqrt{2}}
+}
+\]
+
+\end{document}
