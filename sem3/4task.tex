@@ -1,0 +1,129 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{ucs} 
+\usepackage{amsmath}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc} % Включаем поддержку UTF8  
+\usepackage[russian]{babel}  % Включаем пакет для поддержки русского языка  
+\usepackage{amsfonts}
+\usepackage[left=1.5cm,right=1.5cm]{geometry}
+\usepackage{amsmath}
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\title{4 задача из 3 лекции}  
+\author{Нечитаев Дмитрий}
+
+\begin{document} 
+	\maketitle
+	\section*{Задача 4*}
+	Необходимо вычислить интеграл.
+	\[\int_{0}^{\infty}\frac{\ln(x)}{\ch^2(x)}dx\]
+	\subsection*{Шаг 1}
+	Для начала исследуем сходимость несобственного интеграла. На бесконечности подынтегральная функция $\sim \frac{4ln(x)}{e^{2x}} \Rightarrow$ инт. сх-ся на $+\infty$. Рассмотрим теперь вторую особенность.
+	\[\ch^2(x) \geq 1 \Rightarrow \frac{1}{\ch^2(x)} \leq 1 \Rightarrow \frac{|\ln(x)|}{\ch^2(x)} \leq |\ln(x)|\]
+	Тогда для интеграла справедлива оценка.
+	\[
+		\Bigl| \int_{0}^{1} \frac{\ln(x)}{\ch^2(x)}dx \Bigr| = \int_{0}^{1} \frac{|\ln(x)|}{\ch^2(x)}dx \leq  \int_{0}^{1} |\ln(x)|dx = 1
+	\]
+	Таким образом мы установили, что интеграл сходится (абсолютно). А это значит, что множно ввести последовательность $I_n$, определяемую выражением:
+	\[I_n = \int_{0}^{\pi n}\frac{\ln(x)}{\ch^2(x)} = \ln(\pi n)\tanh(\pi n) - \int_{0}^{\pi n} \frac{\tanh(x)}{x} dx \eqno(1.1)\]
+	Предельный переход $n \rightarrow +\infty$ даст нам ответ на задачу.
+	\pagebreak
+	\subsection*{Шаг 2}
+	Теперь разберемся с интегралом.
+	\[\int_{0}^{\pi n}\frac{\tanh(x)}{x}dx = \frac{1}{2} \int_{-\pi n}^{\pi n} \frac{\tanh(x)}{x} dx \eqno (2.1) \]
+	Для его подсчета воспользуемся ТФКП. В комплексной плоскости проведем контур, представленный на рисунке.
+	
+	\begin{center}
+		\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+		
+		\draw[step=2cm,gray,very thin,dashed] (-3.5,-2) grid (3.5,3.5);
+		\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+		\draw[thick,->] (0,-2) -- (0,3.7) node[anchor=south east] {Im};
+		
+		\foreach \yValue in {0.00,0.1,...,1.00}{
+			\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+			(-3,0)--(3,0) -- (3,0) arc(0:180:3);
+		}
+		
+
+		\coordinate [label=left:$i \pi n$] (P) at (0,3.25);
+		\coordinate [label=right:$ \pi n$] (P) at (3,-0.5);
+		\coordinate [label=left:$-\pi n$] (P) at (-3,-0.5);
+		
+		\coordinate [label=right:$\frac{i\pi}{2}$] (A) at (0,0.5);
+		\draw[fill,red](A) circle (1.5pt);
+		\coordinate [label=right:$\frac{3i\pi}{2}$] (A) at (0,1);
+		\draw[fill,red](A) circle (1.5pt);
+		\coordinate [label=right:$$] (A) at (0,1.5);
+		\draw[fill,red](A) circle (1.5pt);
+		\coordinate [label=right:$\frac{(2p-1)i\pi}{2}$] (A) at (0,2);
+		\draw[fill,red](A) circle (1.5pt);
+		\coordinate [label=right:$$] (A) at (0,2.5);
+		\draw[fill,red](A) circle (1.5pt);
+
+		\end{tikzpicture}
+	\end{center}
+
+\[\int_{C} \frac{\tanh(z)}{z} dz = \int_{-\pi n}^{\pi n}\frac{\tanh(z)}{z}dz + \int_{C_R} \frac{\tanh(z)}{z}dz = 2i\pi \sum Res \frac{\tanh(z)}{z} \eqno (2.2) \]
+Вычеты определяются следующим выражением:
+\[\overset{}{\underset{(2p-1)i\pi/2}{Res}} \frac{\tanh(z)}{z} = \overset{}{\underset{ (2p-1)i\pi/2}{Res}} \frac{\sinh(z)}{\cosh(z)z} = \frac{2}{(2p-1)i\pi} \eqno(2.3)\]
+Теперь разберемся с интегралом по окружности, для этого произведем параметризацию $z = re^{i\phi}$:
+\[\int_{C_R}\frac{\tanh(z)}{z} dz = \int_{0}^{\pi}\frac{\tanh(re^{i\phi})ire^{i\phi} d\phi}{re^{i\phi}} = i\int_{0}^{\pi}\tanh(re^{i\phi})d\phi\eqno(2.4)\]
+\subsection*{Шаг 3}
+Рассмотрим детальто поведение интеграла при предельном переходе $r=\pi n \rightarrow \infty$. Пусть $e^{i\phi} = x+iy$, тогда верно:
+\[\tanh(re^{i\phi}) = \frac{\sh(2rx)}{\cosh(2rx)+\cos(2ry)} + \frac{i\sin(2ry)}{\cosh(2rx)+\cos(2ry)} \eqno(3.1)\]
+Введя новую параметризацию дуги: $x = \cos(\phi) \Rightarrow dx = -\sin(\phi) d\phi = -\sqrt{1-x^2} d\phi$
+\[\int_{0}^{\pi}\tanh(re^{i\phi})d\phi = \int_{-1}^{1} \frac{\sh(2rx)+i\sin(2r\sqrt{1-x^2})}{\sqrt{1-x^2}(\cosh(2rx)+\cos(2r\sqrt{1-x^2}))}dx \eqno(3.2) \]
+Действительная часть подынтегральной функции является нечетной, а мнимая четной, это дает нам соотноешение:
+\[\int_{0}^{\pi}\tanh(re^{i\phi})d\phi = \int_{0}^{1} \frac{2i\sin(2r\sqrt{1-x^2})}{\sqrt{1-x^2}(\cosh(2rx)+\cos(2r\sqrt{1-x^2}))}dx \eqno(3.3)\]
+Введем последовательность функций, определенных на множестве $(0;1)$:
+\[f_n(x) = \frac{\sin(2rx)}{x(\cosh(2r\sqrt{1-x^2})+\cos(2rx))} \text{, где $r = \pi n$} \eqno(3.4)\]
+Из определения фунции $f_n(x)$ следует неравенство:
+\[|f_n(x)| \leq \frac{|\sin(2rx)|}{x(\cosh(2r\sqrt{1-x^2})-1)} \text{ верно для } \forall x \in (0;1) \eqno(3.5)\]
+Рассмотрим функцию на двух промежутках. Пусть $x \in (0;\frac{1}{\sqrt{2}})$, тогда верна оценка:
+\[\frac{|\sin(2rx)|}{x(\cosh(2r\sqrt{1-x^2})-1)} \leq \frac{2rx}{x(\cosh(2r\sqrt{1-1/2})-1)} = \frac{2r}{\cosh(r\sqrt{2})-1} \leq \frac{2r}{r^2} = \frac{2}{\pi n } \leq \frac{2}{\pi} \eqno(3.6)\]
+На втором промежутке $x \in (0.5;1)$ произведем замену переменных: $x = 1 - t \Rightarrow t \in (0;0.5)$ и вспомним, что $r = \pi n$.
+\[\frac{|\sin(2r(1-t))|}{(1-t)(\cosh(2r\sqrt{t(2-t)})-1)} \leq \frac{2rt}{(1-t)2r^2t(2-t)} \leq \frac{1}{(t-2)(t-1)r} \leq \frac{1}{2\pi n}\leq \frac{1}{2\pi} \eqno(3.7)\]
+Таким образом мы установили:
+\[
+|f_n(x)| \leq \frac{1}{2\pi} \forall x \in(0;1), \forall n \in \mathbb{N}
+\]
+Тогда, по теореме Лебега об ограниченной сходимости мы можем утверждать:
+\[
+\int_{0}^{1} \lim\limits_{n \rightarrow \infty}f_n(x)dx = \lim\limits_{n \rightarrow \infty} \int_{0}^{1} f_n(x) dx \eqno(3.8)
+\]
+Но с другой стороны:
+\[\forall x \in (0;1) \text{ верно: } \lim\limits_{n \rightarrow \infty} f_n(x) = 0 \eqno(3.9)\]
+Собирая все вместе, получаем:
+\[
+\lim\limits_{n \rightarrow \infty} \int_{C_R} \frac{\tanh(z)}{z}dz = 0 \eqno(3.10)
+\]
+
+
+\subsection*{Шаг 4}
+Собираем теперь все вместе. Из (2.2) выражаем интеграл с гиперболическим тангенсом.
+\[\int_{0}^{\pi n}\frac{\tanh(x)}{x}dx = \frac{1}{2}\int_{-\pi n}^{\pi n}\frac{\tanh(x)}{x}dx = \sum_{p = 1}^{n} \frac{2}{2p-1} - \frac{1}{2}\int_{C_R}\frac{\tanh(z)}{z}dz \]
+Подставляем в (1.1):
+\[I_n = \int_{0}^{\pi n}\frac{\ln(x)}{\ch^2(x)} = \ln(\pi n)\tanh(\pi n) - \sum_{p = 1}^{n} \frac{2}{2p-1}+ \frac{1}{2}\int_{C_R}\frac{\tanh(z)}{z}dz = \]
+\[ = \Bigl(\ln(\pi n) - \sum_{p=1}^{n} \frac{1}{p} + \sum_{p=1}^{n} \frac{1}{p}\Bigr)\tanh(\pi n) - \sum_{p = 1}^{n} \frac{2}{2p-1}+ \frac{1}{2}\int_{C_R}\frac{\tanh(z)}{z}dz\]
+Переходя к пределу $n \rightarrow \infty$, можно разложить $tanh(\pi n)$ и немного преобразовать выражение.
+\[I_\infty = \lim\limits_{n \rightarrow \infty} \Biggl(\Bigl(\ln(\pi) + \ln(n) - \sum_{p=1}^{n} \frac{1}{p} + \sum_{p=1}^{n} \frac{1}{p}\Bigr)(1-2e^{-2\pi n}) - \sum_{p = 1}^{n} \frac{2}{2p-1}+ \frac{1}{2}\int_{C_R}\frac{\tanh(z)}{z}dz \Biggr) = \]
+\[ =  \ln(\pi) - \gamma  + \sum_{p=1}^{\infty} \Bigl( \frac{2}{2p} - \frac{2}{2p-1} \Bigr) + \frac{1}{2} \lim\limits_{n \rightarrow \infty} \int_{C_R}\frac{\tanh(z)}{z}dz = \ln(\pi) - \gamma + 2 \sum_{p=1}^{\infty} \frac{(-1)^{p+1}}{p} = \]
+\[ = \ln(\pi) - \gamma + 2\ln(2) = \ln(\frac{\pi}{4}) - \gamma \]
+Где $\gamma$ - константа Эйлера - Маскерони.
+
+
+Окончательно:
+\[
+\boxed{	
+	\int_{0}^{\infty}\frac{\ln(x)}{\ch^2(x)}dx = \ln\Bigr(\frac{\pi}{4}\Bigl)-\gamma
+}
+\]
+
+\end{document}
