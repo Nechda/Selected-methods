@@ -1,0 +1,170 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{ucs} 
+\usepackage{amsmath}
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc} % Включаем поддержку UTF8  
+\usepackage[russian]{babel}  % Включаем пакет для поддержки русского языка  
+\usepackage{amsfonts}
+\usepackage[left=1.5cm,right=1.5cm]{geometry}
+\usepackage{amsmath}
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\title{Задачи к 4 лекции}  
+\author{Нечитаев Дмитрий}
+
+\begin{document} 
+	\maketitle
+	\section*{Задача 1}
+	'Билетик' --- это последоательность вида
+	\[n_1n_2...n_Nm_1m_2...m_N \text{, где }\forall i \in \overline{1,N} \rightarrow n_i,m_i \in \overline{0,9} \]
+	Будем называть билетик "счастливым", если для него выполняется
+	\[\sum_{i=1}^{N} n_i = \sum_{i=1}^{N}m_i\]
+	Обозначим число счастливых билетиков как $H(N)$. Необходимо посчитать $H(N)$ в пределе $N>>1$. Для этого решим несколько вспомогательных задач.
+	\begin{itemize}
+		\item Докажем формулу
+		\[\delta_{a,b} = \frac{1}{2\pi}\int_{-\pi}^{\pi}dx e^{ix(a-b)}\]
+		\item Найдем интегральное представление $H(N)$.
+		\item Применим метод перевала к интегральному представлению.
+	\end{itemize}
+\subsection*{Шаг 1}
+Пусть $a=b$, тогда
+\[\frac{1}{2\pi}\int_{-\pi}^{\pi}dxe^0 =\frac{2\pi}{2\pi} = 1\]
+Если $a\neq b$, то пусть $a-b = c \in \mathbb{Z}\backslash \{0\} $, значение интеграла будет 
+\[\frac{1}{2\pi}\int_{-\pi}^{\pi}dxe^{icx} = \frac{1}{2c\pi}\int_{-\pi}^{\pi}d(cx)e^{icx} = \frac{1}{2c\pi}\Bigl(e^{ic\pi}-e^{-ic\pi}\Bigl) = \frac{1}{c\pi}\sin(c\pi) = 0\]
+Таким образом мы получили:
+\[\delta_{a,b} = \frac{1}{2\pi}\int_{-\pi}^{\pi}dx e^{ix(a-b)}\]
+\subsection*{Шаг 2}
+\def \Nsum[#1]{\sum_{n_{#1}=0}^{9}}
+\def \Msum[#1]{\sum_{m_{#1}=0}^{9}}
+В интегральное представление $\delta_{a,b}$ можно подставить в качестве $a$ --- сумму первых $N$ цифр, а в $b$ --- сумму последних $N$ цифр, тогда представление $H(N)$ запишется в виде:
+\[H(N) = \Nsum[1]\Nsum[2]...\Nsum[N]\Msum[1]\Msum[2]...\Msum[N] \int_{-\pi}^{\pi}\frac{dx}{2\pi} \exp(ix(n_1+n_2+...+n_N - m_1-m_2-...-m_N)) \eqno(2.1)\]
+Это страшное выражение можно упростить. Для этого необходимо занести знаки суммы под интеграл, затем посчитать сумму геометрической прогрессии.
+\[H(N) = \int_{-\pi}^{\pi}\frac{dx}{2\pi}\Nsum[1]\Nsum[2]...\Nsum[N]\Msum[1]\Msum[2]...\Msum[N]e^{ixn_1}e^{ixn_2}...e^{ixn_N}e^{-ixm_1}e^{-ixm_2}...e^{-ixm_N} = \]
+\[=\int_{-\pi}^{\pi}\frac{dx}{2\pi} \frac{e^{10ix}-1}{e^{ix}-1} \Nsum[2]...\Nsum[N]\Msum[1]\Msum[2]...\Msum[N]e^{ixn_2}...e^{ixn_N}e^{-ixm_1}e^{-ixm_2}...e^{-ixm_N} =\]
+\[=\int_{-\pi}^{\pi}\frac{dx}{2\pi} \Bigl(\frac{e^{10ix}-1}{e^{ix}-1}\Bigr)^N\Msum[1]\Msum[2]...\Msum[N]e^{-ixm_1}e^{-ixm_2}...e^{-ixm_N} =\]
+\[=\int_{-\pi}^{\pi}\frac{dx}{2\pi} \Bigl(\frac{e^{10ix}-1}{e^{ix}-1}\Bigr)^N \frac{e^{-10ix}-1}{e^{-ix}-1}\Msum[2]...\Msum[N]e^{-ixm_2}...e^{-ixm_N} =\]
+\[= \int_{-\pi}^{\pi}\frac{dx}{2\pi} \Bigl(\frac{e^{10ix}-1}{e^{ix}-1} \cdot \frac{e^{-10ix}-1}{e^{-ix}-1}\Bigr)^N = \int_{-\pi}^{\pi}\frac{dx}{2\pi} \Bigl(\frac{e^{5ix}-e^{-5ix}}{e^{ix/2}-e^{-ix/2}} \cdot \frac{e^{-5ix}-e^{5ix}}{e^{-ix/2}-e^{ix/2}}\Bigr)^N = \int_{-\pi}^{\pi}\frac{dx}{2\pi} \Bigl(\frac{\sin(5x)}{\sin(\frac{x}{2})}\Bigr)^{2N} \Rightarrow\]
+\[ H(N) = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{dx}{\pi}\frac{\sin^{2N}(10x)}{\sin^{2N}(x)} \eqno(2.2)\]
+\subsection*{Шаг 3}
+Применим к полученному выражению метод перевала. Детальней рассмотрим функцию $\sin(10x)/\sin(x)$. Т.к. данная функция является четной, что в нуле все нечентные производные будут равны 0. Посмотрим что происходит со второй производной.
+\[\frac{d^2}{dx^2} \frac{\sin(10x)}{\sin(x)} = \csc(x)\Bigl(\sin(10x)(\cot^2(x)+\csc^2(x)-100)-20\cos(10x)\cot(x) \Bigr)\]
+В нуле вторая производная стремится к значению $-330$.
+Т.е контур в комплексной плоскости деформировать не нужно.
+
+
+Вообще, подынтегральная функция имеет и другие точки максимума, но значения, которые в этих точках достигаются будут меньше 10. Возьмем точку $x_0 = \frac{\pi}{10}$ --- точка, соответсвующая первому нулю числителя. Тогда верна оценка неравенств:
+\[\frac{|\sin(10x)|}{\sin(x)}\leq \frac{|\sin(10x)|}{\sin(\pi/10)} \leq \frac{|\sin(10x)|}{\sin(\pi/12)} \leq \frac{1}{\sin(\pi/12)} = \frac{2\sqrt{2}}{\sqrt{3}-1}\leq 3.9 \;\;\;\; \forall |x| \in \Bigl[\frac{\pi}{10}; \frac{\pi}{2}\Bigr]\]
+Получается, что при больших значениях  $N$ нам достаточно учесть влияние одной перевальной точки. Разложим логарифм в нуле до второго порядка:
+\[\ln\Big(\frac{\sin(10x)}{\sin(x)}\Big) = \ln(10) - \frac{33}{2}x^2 +o(x^3) \eqno(3.1)\]
+Подставляем это разложение в интеграл (2.2):
+\[H(N) = \int_{-\frac{\pi}{2}}^{\frac{\pi}{2}}\frac{dx}{\pi}\exp\Big(2N\ln\Big(\Big|\frac{\sin(10x)}{\sin(x)}\Big|\Big)\Big) \approx \int_{-\infty}^{\infty}\frac{dx}{\pi}\exp\Big(2N(\ln(10)-\frac{33}{2}x^2)\Big) = \]
+\[ =\frac{10^{2N}}{\pi}\int_{-\infty}^{\infty}dx e^{-33N x^2} = \frac{10^{2N}}{\pi} \sqrt{\frac{\pi}{33N}} = \frac{100^N}{\sqrt{33\pi N}}\]
+
+Оценим точность полученного результата. Известно, что $H(3) = 55252$, наша формула дает значение $H(3) \approx 56700$. В таком случае относительная ошибка не более $3\%$.
+\section*{Задача 2}
+Вычислить асиптотику биномиальных коэффециентов, используя интегрирование в комплексной плоскости и метод перевала.
+\begin{itemize}
+	\item Докажем формулу
+	\[C_n^k = \frac{1}{2i\pi}\int_{|z|=1} \frac{dz}{z}\frac{(1+z)^n}{z^k}\]
+	интегирование по еденичной окружности против часовой стрелки.
+	\item Положим теперь $k = xn$, где $0<x<1$. Cчитая, что $n,x,(1-x)n\gg1$, найдем методом перевала асиптотику $C_n^k$.
+	\item Проверка правильности ответа с помощью формулы Cтирлинга.
+	\[n! \approx \sqrt{2\pi n}\Big(\frac{n}{e}\Big)^n\]
+\end{itemize}
+\subsection*{Шаг 1}
+Рассмотрим интеграл:
+\[\int_{|z|=1} \frac{dz}{z}\frac{(1+z)^n}{z^k} \;\; \text{где $n,k>0$}\]
+Подынтегральное выражение имеет особенность в нуле, а это значит, что интеграл определяется только вычетом в нуле. 
+
+Воспользуемся разложением числителя дроби в ряд:
+\[(1+z)^n = \sum_{p=1}^{\infty} C_n^p z^p \eqno(1.1)\]
+\[\frac{(1+z)^n}{z^k} = \sum_{p=1}^{\infty} C_n^p z^{p-k} \eqno(1.2)\]
+Тогда при интегрировании по единичной окружности мы получем:
+\[\int_{|z|=1}\frac{dz}{z}\frac{(1+z)^n}{z^k} = \int_{|z|=1} \frac{dz}{z}\Big(\sum_{p=1}^{\infty} C_n^p z^{p-k}\Big) = \int_{|z|=1}\frac{dz}{z}C_n^k = 2i\pi C_n^k \eqno(1.3)\]
+Окончательно:
+\[C_n^k = \frac{1}{2i\pi}\int_{|z|=1} \frac{dz}{z}\frac{(1+z)^n}{z^k} \eqno(1.4)\]
+\subsection*{Шаг 2}
+Положим теперь $k = xn$, где $0<x<1$. Cчитая, что $n,x,(1-x)n\gg1$.
+
+ Найдем методом перевала асиптотику $C_n^k$, для этого рассмотрим поведение фунции $f(z) = \ln(z+1)-x\ln(z)$.
+\[f'(z_0) = 0 \Leftrightarrow \frac{1}{z_0+1}-\frac{x}{z_0} = 0 \Leftrightarrow z_0 = \frac{x}{1-x} \Leftrightarrow z_0 + 1 = \frac{1}{1-x} \eqno(2.1)\]
+\[f''(z_0) = -\frac{1}{(z_0+1)^2}+\frac{x}{z_0^2} = \frac{(1-x)^2}{x}-(1-x)^2 = \frac{(1-x)^3}{x} = -\frac{e^{i\pi}(1-x)^3}{x} \eqno(2.2)\]
+Т.е. деформированный контур должен проходить через точку $z_0 = x/(1-x)$ под уголом $\pi/2$. Для этого достаточно изменить радиус окружности в исходном интеграле.
+Разложим функцию $f(z)$ в окрестности точки $z_0$ до второго порядка.
+\[f(z) = \ln\Big(\frac{1}{1-x}\Big)-x\ln\Big(\frac{x}{1-x}\Big) -\frac{e^{i\pi}(1-x)^3}{2x}z^2 + o(z^3)\eqno(2.3)\]
+Подставляем разложение в интеграл:
+\[\frac{1}{2i\pi}\int_{|z|=1}\frac{dz}{z}\frac{(1+z)^n}{z^k}=\frac{1}{2i\pi}\int_{|z|=1}\frac{dz}{z}\exp(nf(z)) \approx \]
+\[\approx \frac{1}{2i\pi}\Big(\frac{1-x}{x}\Big)^{xn+1}\frac{1}{(1-x)^n}\int_{-i\infty}^{i\infty}\exp\Big(\frac{n(1-x)^3}{2x}z^2\Big)dz =  \frac{i(1-x)^{xn-n+1}}{2i\pi x^{xn+1}}\int_{-\infty}^{\infty}\exp\Big(-\frac{n(1-x)^3}{2x}z^2\Big)dz =\]
+\[ =\frac{(1-x)^{xn-n+1}}{2\pi x^{xn+1}} \sqrt{\frac{2x\pi}{n(1-x)^3}} = \frac{(1-x)^{xn-n+1}}{x^{xn+1}}\sqrt{\frac{x}{2\pi n (1-x)^3}} = \frac{(1-x)^{xn-n}}{x^{xn}}\sqrt{\frac{1}{2\pi n x(1-x)}} \eqno(2.4)\]
+Возвращаясь обратно к переменным $k,n$, получаем:
+\[\boxed{C_n^k = \frac{n^n}{k^{k}(n-k)^{n-k}}\sqrt{\frac{n}{2\pi k(n-k)}}} \eqno(2.5)\]
+\subsection*{Проверка результата}
+Проверим полученный результат. Для этого воспользуемся формулой Стирлинга.
+\[n! \approx \sqrt{2\pi n }\Big(\frac{n}{e}\Big)^n\]
+Подставим данное представление в формулу для биномиальных коэффециентов:
+\[C_n^k = \frac{n!}{k!(n-k)!} = \frac{\sqrt{2\pi n}(n/e)^n}{\sqrt{2\pi(n-k)} ((n-k)/e)^{n-k} \sqrt{2\pi k} (k/e)^k} =  \frac{n^n}{k^{k}(n-k)^{n-k}}\sqrt{\frac{n}{2\pi k(n-k)}}\]
+Можно радоваться, т.к. мы получили выражение (2.5).
+\section*{Задача 3}
+Вычислить асимптотику функции Бесселя $z\rightarrow +\infty$.
+\[J_\nu(z) = \frac{1}{2i\pi} \int_{C} \frac{dt}{t^{\nu+1}} \exp\Big(\frac{z}{2}\Big\{t-\frac{1}{t}\Big\}\Big) \]
+Разрез и контур изображены на рисунке:
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=1cm,gray,very thin,dashed] (-3.5,-2.01) grid (3.5,2);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-2) -- (0,2) node[anchor=south east] {Im};
+
+	\foreach \yValue in {0.1,0.2,...,1.00}{
+	\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+	({-3.5*cos(5)},{-3*sin(5)}) -- (0,{-3*sin(5)})  arc(-90:90:{3*sin(5)}) -- ({-3.5*cos(5)},{3*sin(5)});
+	}
+	
+	\draw[fill,color=red!60,pattern=north east lines] 
+	({-3.5*cos(5)},{-2*sin(5)}) -- (0,{-2*sin(5)}) -- (0,{-2*sin(5)}) arc(-90:90:{2*sin(5)}) -- (0,{2*sin(5)}) -- ({-3.5*cos(5)},{2*sin(5)}) -- ({-3.5*cos(5)},{-2*sin(5)});
+
+	\end{tikzpicture}
+\end{center}
+
+Введем функцию $f(t) = t - \frac{1}{t}$. Исследуем её поведение:
+\[f'(t_0) = 1+\frac{1}{t_0^2} =0 \Leftrightarrow t_0 = \pm i \Rightarrow f''(t) = -\frac{2}{t^3} \Rightarrow \begin{cases}
+f''(i) = -2i \\
+f''(-i) = 2i
+\end{cases}\]
+Тогда проложим контур в комплексной плоскости следующим образом:
+
+\begin{center}
+	\begin{tikzpicture}[arrowmark/.style 2 args={decoration={markings,mark=at position #1 with \arrow{#2}}}]
+	
+	\draw[step=1cm,gray,very thin,dashed] (-3.5,-2.01) grid (3.5,2);
+	\draw[thick,->] (-4,0) -- (4,0) node[anchor=north west] {Re};
+	\draw[thick,->] (0,-2) -- (0,2) node[anchor=south east] {Im};
+	
+	\foreach \yValue in {0.1,0.2,...,1.00}{
+		\draw[very thick,postaction={decorate},arrowmark={\yValue}{>}]
+		(-3.5,{-sqrt(2)*sin(10)}) -- ({1-sqrt(2)*cos(10)},{-sqrt(2)*sin(10)}) arc(-170:170:{sqrt(2)}) -- (-3.5,{sqrt(2)*sin(10)});
+	}
+
+	\coordinate [label=right:$i$] (A1) at (0,1);
+	\coordinate [label=right:$-i$] (A2) at (0,-1);
+	
+	\draw[fill,red](A1) circle (1.5pt);
+	\draw[fill,red](A2) circle (1.5pt);
+	
+	\draw[fill,color=red!60,pattern=north east lines] 
+	({-3.5*cos(5)},{-2*sin(5)}) -- (0,{-2*sin(5)}) -- (0,{-2*sin(5)}) arc(-90:90:{2*sin(5)}) -- (0,{2*sin(5)}) -- ({-3.5*cos(5)},{2*sin(5)}) -- ({-3.5*cos(5)},{-2*sin(5)});
+	\end{tikzpicture}
+\end{center}
+В данном случае у нас есть 2 перевальные точки, причем контур через точку $i$ проходит под уголом $5\pi/4$. Если изменить обход котнутура, то угол станет $\pi/4$ --- тот, который нам и нужен. Получается, что для учета перевальной точки $i$ нужно просто считать набор интеграла в окрестности $i$ отрицательным.
+\[J_\nu(z) = \frac{1}{2i\pi} \sqrt{\frac{2\pi}{z}}\Big( - \frac{\exp(-i\pi/4)\exp(iz)}{\exp(\frac{i\pi}{2}(\nu+1))} + +\frac{\exp(i\pi/4)\exp(-iz)}{\exp(-\frac{i\pi}{2}(\nu+1))}   \Big) =  \]
+\[= \frac{1}{2i}\sqrt{\frac{2}{\pi z}}\Bigg( \exp\Big\{\frac{i\pi}{4}-iz + \frac{i\pi}{2}(\nu+1)\Big\} - \exp\Big\{-\frac{i\pi}{4}+iz - \frac{i\pi}{2}(\nu+1)\Big\} \Bigg) = \sqrt{\frac{2}{\pi z}}\sin\Big(-z+\frac{\pi}{2}(\nu+1) + \frac{\pi}{4}\Big) =  \]
+\[ = -\sqrt{\frac{2}{\pi z}}\sin\Big(z-\frac{\pi}{2}\nu - \frac{\pi}{4} - \frac{\pi}{2}\Big) = \sqrt{\frac{2}{\pi z}} \cos\Big(z-\frac{\pi}{2}\nu-\frac{\pi}{4}\Big)\] 
+Окончательно:
+\[\boxed{J_\nu(z) = \sqrt{\frac{2}{\pi z}}\cos\Big(z-\frac{\pi}{2}\nu-\frac{\pi}{4}\Big)}\]
+\end{document}
