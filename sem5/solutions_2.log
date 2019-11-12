@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.21)  11 NOV 2019 02:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7140 64-bit) (preloaded format=pdflatex 2019.9.21)  12 NOV 2019 12:18
 entering extended mode
 **./solutions_2.tex
 (solutions_2.tex
@@ -878,7 +878,7 @@ Package pdftex.def Info: sketch.png  used on input line 227.
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
-Overfull \hbox (10.68422pt too wide) in paragraph at lines 231--233
+Overfull \hbox (18.99242pt too wide) in paragraph at lines 231--233
 []\T2A/cmr/m/n/12 Данная це-поч-ка срав-не-ний спра-вед-ли-ва при двух сло-ви-я
 х: $\OML/cmm/m/it/12 r[] > R$ \T2A/cmr/m/n/12 и $\OML/cmm/m/it/12 x \OMS/cmsy/m
 /n/12 2 []$\T2A/cmr/m/n/12 .
@@ -952,7 +952,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 476.
 Here is how much of TeX's memory you used:
  23674 strings out of 492895
  425236 string characters out of 3123268
- 477450 words of memory out of 3000000
+ 477451 words of memory out of 3000000
  27131 multiletter control sequences out of 15000+200000
  22824 words of font info for 60 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -984,7 +984,7 @@ Dmitry/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb><E:/Users/Dmitry/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfon
 ts/cm/cmsy8.pfb><E:/Users/Dmitry/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/
 public/amsfonts/symbols/msbm10.pfb>
-Output written on solutions_2.pdf (22 pages, 590688 bytes).
+Output written on solutions_2.pdf (22 pages, 591078 bytes).
 PDF statistics:
  519 PDF objects out of 1000 (max. 8388607)
  73 named destinations out of 1000 (max. 500000)
