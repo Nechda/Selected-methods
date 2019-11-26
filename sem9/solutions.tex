@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tikz}
+\usepackage{ucs} 
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8x]{inputenc} % Включаем поддержку UTF8  
+\usepackage[russian]{babel}  % Включаем пакет для поддержки русского языка  
+\usepackage{amsfonts}
+\usepackage[left=1.5cm,right=1.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\DeclareMathOperator\arctanh{arctanh}
+
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\title{Задачи к 9 лекции}  
+\author{Нечитаев Дмитрий}
+
+\begin{document} 
+	\maketitle
+	\section*{Задача 1}
+	Необходимо получить уравнения на медленные переменные в задаче Кеплера, предполагая, что частица находится в среде со слабым трением.
+	\[\mathbf{F_{ad}} = -\nu \mathbf{\dot{r}} \eqno(1)\]
+	
+	
+	Запишем уравнение движения частицы:
+	\[m\mathbf{\ddot{r}} = -\frac{\alpha}{r^3}\mathbf{r} - \nu \mathbf{\dot{r}} \eqno(2)\]
+	На временах порядка нескольких периодов $\textbf{r}$ ведет себя как и в невозмущенной задаче Кеплера, значит данную функцию можно разложиьт в ряд фурье:
+	\[\mathbf{r} = \mathbf{r_0} + \sum_{n=1}^{\infty} \mathbf{a_n} \cos(n\omega t )+\mathbf{b_n}\sin(n\omega t) \eqno(3)\]
+	После дифференцирования по времени постоянный вектор $\mathbf{r_0}$ исчезает, а это значит, что скорость частицы $\mathbf{v} = \mathbf{\dot{r}}$ при усреднении по периоду будет давать 0.
+	Из этого можно заключить, что если усреднить уравнение движения (2) по периоду, то последнее слагаемое обнулится, т.е. имеет место соотношение:
+	\[\Big<m\mathbf{\ddot{r}}\Big>_T = -\Big<\frac{\alpha}{r^3}\mathbf{r}\Big>_T \eqno(4)\]
+	
+	
+	Перейдем к исследованию эволюции медленных переменных. На лекции было получено соотношение для производных момента импульса и вектора Лапласа-Рунге-Ленца:
+	\[\mathbf{\dot{M}} = \mathbf{r}\times\mathbf{F_{ad}},\;\;\;\;\;\mathbf{\dot{A}} = \frac{1}{\alpha m} \mathbf{F_{ad}}\times \mathbf{M} + \frac{1}{\alpha} \mathbf{\dot{r}}\times\Big(\mathbf{r}\times\mathbf{F_{ad}}\Big) \eqno(5)\]
+	
+	Переходим к средним значениям:
+	\[\mathbf{\dot{M}} = \Big< \mathbf{r} \times \Big(m\mathbf{\ddot{r}} + \frac{\alpha}{r^3} \mathbf{r}\Big) \Big>_T = m\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T \eqno(6)\]
+	Преобразуем выражение для серднего:
+	\[\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T = \Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T + \Big<\mathbf{\dot{r}}\times\mathbf{\dot{r}}\Big>_T = \frac{d}{dt}  \Big<\mathbf{r}\times\mathbf{\dot{r}}\Big>_T = -\frac{m}{\nu} \frac{d}{dt} \Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T \eqno(7) \]
+	Решаем диффур:
+	\[\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T = \mathbf{Q_0}\exp\Big( - \frac{\nu}{m} t\Big) \eqno(8)\]
+	Тут $\mathbf{Q_0}$ --- постоянный вектор, значение которого мы определим чуть позже.
+	
+	Подставляем соотношение (8) в уравнение (6):
+	\[\mathbf{\dot{M}} = m\mathbf{Q_0} \exp\Big(-\frac{\nu}{m}t\Big) \eqno(9)\]
+	Т.к. в системе есть диссипация, то в конечном итоге тело потеряет весь свой момент импульса, т.е на бесконечности $\mathbf{M} \rightarrow 0$. Интегрируем уравнение (9):
+	\[\mathbf{M}(t) = \mathbf{M_0} + \frac{m^2\mathbf{Q_0}}{\nu}\Big(1-\exp\Big(-\frac{\nu}{m}t\Big)\Big) \eqno(10)\]
+	Предельный переход $t \rightarrow \infty$ дает соотношение для $\mathbf{Q_0}$:
+	\[\mathbf{Q_0} = - \mathbf{M_0}\frac{\nu}{m^2} \eqno(11)\]
+	Тогда уравнение на момент импульса примет вид:
+	\[\mathbf{M}(t) = \mathbf{M_0}\exp\Big(-\frac{\nu}{m} t\Big) \eqno(12)\]
+	Разберемся теперь как эволюционирует вектор Рунге-Ленца:
+	\[\mathbf{\dot{A}} = -\Big< \frac{1}{\alpha m} \mathbf{\nu \dot{r}} \times \mathbf{M}\Big>_T + \frac{1}{\alpha}\Big<\mathbf{\dot{r}} \times \Big( \mathbf{r} \times \mathbf{(-\nu \dot{r})}\Big)\Big>_T = \]
+	\[= - \Big< \frac{1}{\alpha m} \mathbf{\nu \dot{r}}\Big>_T \times \mathbf{M} + \frac{1}{\alpha}\Big<\mathbf{\dot{r}}  \times \mathbf{M} \Big>_T = \frac{1}{\alpha}\Big<\mathbf{\dot{r}}\Big>_T  \times \mathbf{M} = 0 \eqno(13)\]
+	Получается что вектор $\mathbf{A}$ остается постоянным. Если обратиться к геометрическим параметрам орбиты, то получим, что эксцентреситет, равный $|\mathbf{A}|$ остается постоянным, а параметры орбиты, пропорциональный $\mathbf{M}^2$ задающий "размеры" траектории убывает со временем как $\sim \exp\Big(-2\frac{\nu}{m} t\Big)$. Т.е тело движется по подобным эллипсам, размеры которых убывают экспоненциально со временем.
+	
+	\pagebreak
+	В классической задаче Кеплера траектория в полярной системе координат определяется выражением:
+	\[r(\phi) = \frac{p}{1+A\cos\phi},\;\;\; p = \frac{M^2}{\alpha m} \eqno(14)\]
+	Посчитаем период обращения тела по такой траектории:
+	\[T = \int_0^T dt = \int_0^{2\pi} \frac{d\phi}{\phi_t'} = \int_0^{2\pi} \frac{mr^2}{M^2}d\phi = \frac{mp^2}{M}\int_0^{2\pi} \frac{d\phi}{(1+A\cos \phi)^2} \eqno(15)\]
+	\[J(\beta) = \int_0^{2\pi} \frac{dx}{\beta+A\cos x} = \left\{ t = \tan(x/2)\right\} =  2 \int_0^{\infty} \frac{2dt}{\beta(1+t^2)+A(1-t^2)} = 4 \int_0^{\infty} \frac{dt}{(A+\beta) + t^2 (\beta-A)} =  \]
+	\[ = \frac{4}{\beta-A} \int_0^{\infty} \frac{dt}{\frac{A+\beta}{\beta-A} + t^2} = \frac{2\pi}{\sqrt{\beta^2-A^2}} \eqno(16)\]
+	Для вычисления интеграла, который фигурирует в (15) необходимо взять производную $\partial_\beta J(\beta) \Big|_{\beta = 1}$
+	\[\partial_\beta J(\beta) \Big|_{\beta = 1} = -\frac{2\pi\beta}{(\beta^2-A^2)^{3/2}} \Big|_{\beta = 1} = -\frac{2\pi}{(1-A^2)^{3/2}} \eqno(17)\]
+	Это выражение соответствет интегралу:
+	\[ \partial_\beta J(\beta) = -\int_0^{2\pi} \frac{dx}{(\beta+A\cos x)^2} \eqno(18)\]
+	С учетом выражения (16), (17) находим выражение для периода из формулы (15):
+	\[\boxed{T = \frac{mp^2}{M}\cdot \frac{2\pi}{(1-A^2)^{3/2}}} \eqno(19)\]
+	\section*{Задача 2}
+	В данной задаче требуется определить как будет изменяться траектория частицы, если учесть, что происходит потеря массы из-за излучения.
+	
+	
+	Первым делом определим внешнюю силу, которая действует на частицу, для этого запишем теорему об изменении количества движения:
+	\[\frac{d\mathbf{Q}}{dt} = -\frac{\alpha \mathbf{r}}{r^3} \Leftrightarrow \dot{m}\mathbf{\dot{r}} + m\mathbf{\ddot{r}} = -\frac{\alpha \mathbf{r}}{r^3} \Leftrightarrow \]
+	\[m\mathbf{\ddot{r}} = -\frac{\alpha \mathbf{r}}{r^3} - \dot{m}\mathbf{\dot{r}} \eqno(1)\]
+	\pagebreak
+	
+	Исследуем как меняется момент импульса. С учетом формулы (1) получаем:
+	\[\mathbf{M} = m\mathbf{r}\times\mathbf{\dot{r}} \Rightarrow \mathbf{\dot{M}} = m \mathbf{r}\times\mathbf{\ddot{r}} = -\dot{m} \mathbf{r}\times\mathbf{\dot{r}} = -\frac{\dot{m}}{m} \mathbf{M} \eqno(2)\]
+	Важно заметить, что $\mathbf{M}$ --- это момент импульса только планеты, поэтому при посчете производной член, содержащий $\dot{m}$ мы не учитывали, т.к. в таком случае получили бы изменение импульса системы: планета + излученное вещество. Из формулы (1) видно, что на такую систему действует только одна центральная сила, а значит и изменение момента импульса относительно центра поля будет нулевым.
+	
+	Теперь обратимся к вектору Рунге-Ленца:
+	\[\mathbf{A} = \frac{1}{\alpha} \mathbf{\dot{r}}\times \mathbf{M} - \frac{\mathbf{r}}{r} \eqno(3)\]
+	Дифференцируем по времени:
+	\[\mathbf{\dot{A}} = -\frac{\dot{\alpha}}{\alpha^2} \mathbf{\dot{r}}\times\mathbf{M} + \frac{1}{\alpha} \mathbf{\ddot{r}}\times \mathbf{M} + \frac{1}{\alpha} \mathbf{\dot{r}}\times\mathbf{\dot{M}} - \frac{\mathbf{\dot{r}}}{r} + \frac{\mathbf{r}\dot{r}}{r^2} = \]
+	\[ = -\frac{\dot{\alpha}}{\alpha^2} \mathbf{\dot{r}}\times\mathbf{M} - \Big\{ \frac{1}{\alpha} \frac{\alpha \mathbf{r}}{r^3} \times (\mathbf{r}\times\mathbf{\dot{r}}) + \frac{\dot{m}}{\alpha} \mathbf{\dot{r}} \times (\mathbf{r}\times\mathbf{\dot{r}}) \Big\} - \frac{\dot{m}}{\alpha m}\mathbf{\dot{r}}\times\mathbf{M}- \frac{\mathbf{\dot{r}}}{r} + \frac{\mathbf{r}\dot{r}}{r^2} = \]
+	\[= -\frac{\dot{\alpha}}{\alpha^2} \mathbf{\dot{r}}\times\mathbf{M} - \frac{2\dot{m}}{\alpha m}\mathbf{\dot{r}}\times\mathbf{M} = -\Big(\frac{\dot{\alpha}}{\alpha^2}+\frac{2\dot{m}}{\alpha m}\Big)\mathbf{\dot{r}}\times\mathbf{M} \eqno(4) \]
+	
+	Произведем усреднение выражений (2) и (4), учитывая, что\footnote{Данные соотношения показывают, что за время периода величины $\alpha,m$ практически не изменаются} $T\dot{\alpha}/\alpha,T\dot{m}/m \ll 1$, где $T$ --- период обращения.
+	\[\mathbf{\dot{M}} = -\Big<\frac{\dot{m}}{m}\Big>_T\mathbf{M} = - \frac{\dot{m}}{m} \mathbf{M} \eqno(5)\]
+	\[\mathbf{\dot{A}} = -\Big<\Big(\frac{\dot{\alpha}}{\alpha^2}+\frac{2\dot{m}}{\alpha m}\Big)\mathbf{\dot{r}}\Big>_T \times \mathbf{M} = -\Big(\frac{\dot{\alpha}}{\alpha^2}+\frac{2\dot{m}}{\alpha m}\Big) \Big<\mathbf{\dot{r}}\Big>_T\times\mathbf{M} = \mathbf{0}\eqno(6)\]
+	
+	
+	Получается, что т.к. планета теряет массу, то $\dot{m}/m <0$ т.е. момент импульса экспоненциально растет, а значит характерный размер орбит возрастает как $\sim \exp(-2\frac{\dot{m}}{m}t)$. Причем эксцентриситет орбиты остается постоянным.
+	
+	\pagebreak
+	\section*{Задача 3}
+	Исследуем траекторию электрона в поле протона при добавлении слабого магнитного поля.
+	
+	
+	Уравнение движения электрона:
+	\[m\mathbf{\ddot{r}} = - \frac{\alpha \mathbf{r}}{r^3} -e\mathbf{\dot{r}}\times\mathbf{B} \eqno(1)\]
+	Производные векторов $\mathbf{M},\mathbf{A}$:
+	\[\mathbf{\dot{M}} = -e\mathbf{r}\times(\mathbf{\dot{r}}\times\mathbf{B})\;\;\;\;\mathbf{\dot{A}} = -\frac{e}{\alpha m} (\mathbf{\dot{r}}\times\mathbf{B}) \times \mathbf{M} - \frac{e}{\alpha} \mathbf{\dot{r}} \times \Big(\mathbf{r}\times (\mathbf{\dot{r}}\times\mathbf{B}) \Big)\eqno(2)\]
+	
+	Отметим пару тождеств:
+	\[\mathbf{r}\times(\mathbf{\dot{r}}\times B) + \mathbf{\dot{r}}\times(\mathbf{r}\times \mathbf{B}) = \frac{d}{dt}\Big( \mathbf{r}\times(\mathbf{r}\times\mathbf{B}) \Big) \eqno(3)\]
+	\[\mathbf{r}\times(\mathbf{\dot{r}}\times\mathbf{B}) + \mathbf{\dot{r}}\times(\mathbf{B}\times\mathbf{r}) + \mathbf{B}\times(\mathbf{r}\times\mathbf{\dot{r}}) = \mathbf{0} \eqno(4)\]
+	В силу того, что поле слабое, можно считать $\mathbf{r}$ --- периодическая функция, а значит $\mathbf{r}\times(\mathbf{r}\times\mathbf{B})$ --- тоже периодическая функция, тогда среднее значение производной (3) за период будет равно нулю\footnote{Это утверждение доказывалось в первой задаче}. Тогда можно установить:
+	\[\Big<\mathbf{r}\times(\mathbf{\dot{r}}\times B)\Big>_T = \Big<\mathbf{\dot{r}}\times(\mathbf{B}\times \mathbf{r})\Big>_T \eqno(5)\]
+	Усредняя выражение (4), учитывая соотношение (5), получаем:
+	\[2\Big<\mathbf{r}\times(\mathbf{\dot{r}}\times B)\Big>_T = -\Big<\mathbf{B}\times(\mathbf{r}\times\mathbf{\dot{r}})\Big>_T \eqno(6)\]
+	Тепрь можно посчитать усреднение момента импульса за период:
+	\[\mathbf{\dot{M}} = \frac{e}{2m}\Big<\mathbf{B}\times(m\mathbf{r}\times\mathbf{\dot{r}})\Big>_T = \frac{e}{2m}\mathbf{B}\times \mathbf{M} = \mathbf{\Omega}\times\mathbf{M} \eqno(7)\]
+	Тут введено обозначение $\mathbf{\Omega} = \frac{e}{2m}\mathbf{B}$.
+	
+	
+	Из выражения (7) понятно, что вектор $\mathbf{M}$ вращается с постоянной угловой скоростью $\mathbf{\Omega}$.
+	\pagebreak
+	
+	
+\end{document}
