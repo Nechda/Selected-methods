@@ -39,39 +39,29 @@
 	\[\mathbf{\dot{M}} = \mathbf{r}\times\mathbf{F_{ad}},\;\;\;\;\;\mathbf{\dot{A}} = \frac{1}{\alpha m} \mathbf{F_{ad}}\times \mathbf{M} + \frac{1}{\alpha} \mathbf{\dot{r}}\times\Big(\mathbf{r}\times\mathbf{F_{ad}}\Big) \eqno(5)\]
 	
 	Переходим к средним значениям:
-	\[\mathbf{\dot{M}} = \Big< \mathbf{r} \times \Big(m\mathbf{\ddot{r}} + \frac{\alpha}{r^3} \mathbf{r}\Big) \Big>_T = m\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T \eqno(6)\]
-	Преобразуем выражение для серднего:
-	\[\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T = \Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T + \Big<\mathbf{\dot{r}}\times\mathbf{\dot{r}}\Big>_T = \frac{d}{dt}  \Big<\mathbf{r}\times\mathbf{\dot{r}}\Big>_T = -\frac{m}{\nu} \frac{d}{dt} \Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T \eqno(7) \]
-	Решаем диффур:
-	\[\Big<\mathbf{r}\times\mathbf{\ddot{r}}\Big>_T = \mathbf{Q_0}\exp\Big( - \frac{\nu}{m} t\Big) \eqno(8)\]
-	Тут $\mathbf{Q_0}$ --- постоянный вектор, значение которого мы определим чуть позже.
-	
-	Подставляем соотношение (8) в уравнение (6):
-	\[\mathbf{\dot{M}} = m\mathbf{Q_0} \exp\Big(-\frac{\nu}{m}t\Big) \eqno(9)\]
-	Т.к. в системе есть диссипация, то в конечном итоге тело потеряет весь свой момент импульса, т.е на бесконечности $\mathbf{M} \rightarrow 0$. Интегрируем уравнение (9):
-	\[\mathbf{M}(t) = \mathbf{M_0} + \frac{m^2\mathbf{Q_0}}{\nu}\Big(1-\exp\Big(-\frac{\nu}{m}t\Big)\Big) \eqno(10)\]
-	Предельный переход $t \rightarrow \infty$ дает соотношение для $\mathbf{Q_0}$:
-	\[\mathbf{Q_0} = - \mathbf{M_0}\frac{\nu}{m^2} \eqno(11)\]
-	Тогда уравнение на момент импульса примет вид:
-	\[\mathbf{M}(t) = \mathbf{M_0}\exp\Big(-\frac{\nu}{m} t\Big) \eqno(12)\]
+	\[\mathbf{\dot{M}} = -\nu\Big<\mathbf{r}\times\mathbf{\dot{r}} \Big>_t = -\frac{\nu}{m} \Big< \mathbf{r}\times\mathbf{m\dot{r}}\Big>_T = -\frac{\nu}{m}\Big<\mathbf{M}\Big>_T \eqno(6)\]
+	В силу того, что переменная $\mathbf{M}$ является медленной, то считаем, что за период $T$ момент импульса практически не меняется. Таким образом получаем соотношение:
+	\[\mathbf{M}(t) = -\frac{\nu}{m}\mathbf{M} \eqno(7)\]
+	Интегрирование дает нам соотношение для момента импульса:
+	\[\mathbf{M}(t) = \mathbf{M_0}\exp\Big(-\frac{\nu}{m} t\Big) \eqno(8)\]
 	Разберемся теперь как эволюционирует вектор Рунге-Ленца:
 	\[\mathbf{\dot{A}} = -\Big< \frac{1}{\alpha m} \mathbf{\nu \dot{r}} \times \mathbf{M}\Big>_T + \frac{1}{\alpha}\Big<\mathbf{\dot{r}} \times \Big( \mathbf{r} \times \mathbf{(-\nu \dot{r})}\Big)\Big>_T = \]
-	\[= - \Big< \frac{1}{\alpha m} \mathbf{\nu \dot{r}}\Big>_T \times \mathbf{M} + \frac{1}{\alpha}\Big<\mathbf{\dot{r}}  \times \mathbf{M} \Big>_T = \frac{1}{\alpha}\Big<\mathbf{\dot{r}}\Big>_T  \times \mathbf{M} = 0 \eqno(13)\]
+	\[= - \Big< \frac{1}{\alpha m} \mathbf{\nu \dot{r}}\Big>_T \times \mathbf{M} + \frac{1}{\alpha}\Big<\mathbf{\dot{r}}  \times \mathbf{M} \Big>_T = \frac{1}{\alpha}\Big<\mathbf{\dot{r}}\Big>_T  \times \mathbf{M} = 0 \eqno(9)\]
 	Получается что вектор $\mathbf{A}$ остается постоянным. Если обратиться к геометрическим параметрам орбиты, то получим, что эксцентреситет, равный $|\mathbf{A}|$ остается постоянным, а параметры орбиты, пропорциональный $\mathbf{M}^2$ задающий "размеры" траектории убывает со временем как $\sim \exp\Big(-2\frac{\nu}{m} t\Big)$. Т.е тело движется по подобным эллипсам, размеры которых убывают экспоненциально со временем.
 	
 	\pagebreak
 	В классической задаче Кеплера траектория в полярной системе координат определяется выражением:
-	\[r(\phi) = \frac{p}{1+A\cos\phi},\;\;\; p = \frac{M^2}{\alpha m} \eqno(14)\]
+	\[r(\phi) = \frac{p}{1+A\cos\phi},\;\;\; p = \frac{M^2}{\alpha m} \eqno(10)\]
 	Посчитаем период обращения тела по такой траектории:
-	\[T = \int_0^T dt = \int_0^{2\pi} \frac{d\phi}{\phi_t'} = \int_0^{2\pi} \frac{mr^2}{M^2}d\phi = \frac{mp^2}{M}\int_0^{2\pi} \frac{d\phi}{(1+A\cos \phi)^2} \eqno(15)\]
+	\[T = \int_0^T dt = \int_0^{2\pi} \frac{d\phi}{\phi_t'} = \int_0^{2\pi} \frac{mr^2}{M^2}d\phi = \frac{mp^2}{M}\int_0^{2\pi} \frac{d\phi}{(1+A\cos \phi)^2} \eqno(11)\]
 	\[J(\beta) = \int_0^{2\pi} \frac{dx}{\beta+A\cos x} = \left\{ t = \tan(x/2)\right\} =  2 \int_0^{\infty} \frac{2dt}{\beta(1+t^2)+A(1-t^2)} = 4 \int_0^{\infty} \frac{dt}{(A+\beta) + t^2 (\beta-A)} =  \]
-	\[ = \frac{4}{\beta-A} \int_0^{\infty} \frac{dt}{\frac{A+\beta}{\beta-A} + t^2} = \frac{2\pi}{\sqrt{\beta^2-A^2}} \eqno(16)\]
+	\[ = \frac{4}{\beta-A} \int_0^{\infty} \frac{dt}{\frac{A+\beta}{\beta-A} + t^2} = \frac{2\pi}{\sqrt{\beta^2-A^2}} \eqno(12)\]
 	Для вычисления интеграла, который фигурирует в (15) необходимо взять производную $\partial_\beta J(\beta) \Big|_{\beta = 1}$
-	\[\partial_\beta J(\beta) \Big|_{\beta = 1} = -\frac{2\pi\beta}{(\beta^2-A^2)^{3/2}} \Big|_{\beta = 1} = -\frac{2\pi}{(1-A^2)^{3/2}} \eqno(17)\]
+	\[\partial_\beta J(\beta) \Big|_{\beta = 1} = -\frac{2\pi\beta}{(\beta^2-A^2)^{3/2}} \Big|_{\beta = 1} = -\frac{2\pi}{(1-A^2)^{3/2}} \eqno(13)\]
 	Это выражение соответствет интегралу:
-	\[ \partial_\beta J(\beta) = -\int_0^{2\pi} \frac{dx}{(\beta+A\cos x)^2} \eqno(18)\]
+	\[ \partial_\beta J(\beta) = -\int_0^{2\pi} \frac{dx}{(\beta+A\cos x)^2} \eqno(14)\]
 	С учетом выражения (16), (17) находим выражение для периода из формулы (15):
-	\[\boxed{T = \frac{mp^2}{M}\cdot \frac{2\pi}{(1-A^2)^{3/2}}} \eqno(19)\]
+	\[\boxed{T = \frac{mp^2}{M}\cdot \frac{2\pi}{(1-A^2)^{3/2}}} \eqno(15)\]
 	\section*{Задача 2}
 	В данной задаче требуется определить как будет изменяться траектория частицы, если учесть, что происходит потеря массы из-за излучения.
 	
