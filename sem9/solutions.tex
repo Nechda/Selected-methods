@@ -114,5 +114,85 @@
 	Из выражения (7) понятно, что вектор $\mathbf{M}$ вращается с постоянной угловой скоростью $\mathbf{\Omega}$.
 	\pagebreak
 	
-	
+	Перепишем уравнение (2) еще раз:
+	\[\mathbf{\dot{M}} = -e\mathbf{r}\times(\mathbf{\dot{r}}\times\mathbf{B})\;\;\;\;\mathbf{\dot{A}} = -\frac{e}{\alpha m} (\mathbf{\dot{r}}\times\mathbf{B}) \times \mathbf{M} - \frac{e}{\alpha} \mathbf{\dot{r}} \times \Big(\mathbf{r}\times (\mathbf{\dot{r}}\times\mathbf{B}) \Big)\eqno(2)\]
+	С учетом выражения для $\mathbf{\dot{M}}$ из уравнения (2) получаем соотношение для производной вектора $\mathbf{A}$:
+	\[\mathbf{\dot{A}} = -\frac{e}{\alpha m} (\mathbf{\dot{r}}\times\mathbf{B})\times \mathbf{M} + \frac{1}{\alpha} \mathbf{\dot{r}}\times\mathbf{\dot{M}} = -\frac{e}{\alpha m} (\mathbf{\dot{r}}\times\mathbf{B})\times \mathbf{M} + \frac{1}{\alpha} \mathbf{\dot{r}}\times\mathbf{\dot{M}} + \frac{1}{\alpha} \mathbf{\ddot{r}}\times\mathbf{M} - \frac{1}{\alpha} \mathbf{\ddot{r}}\times\mathbf{M} = \]
+	\[= -\frac{e}{\alpha m} (\mathbf{\dot{r}}\times\mathbf{B})\times \mathbf{M} + \frac{d}{dt}\Big( \frac{1}{\alpha}\mathbf{\dot{r}}\times\mathbf{M}\Big) -\frac{1}{\alpha} \mathbf{\ddot{r}}\times\mathbf{M} \eqno(8)\]
+	Первые два члена в сумме зануляются при усреднении по периоду обращения. Подробнее рассмотрим что происходит с последним челеном: если подставить вторую производную из уравнения движения и усреднить полученный результат, то понятно, что т.к. вектор $\mathbf{M}$ практически не изменяется, то среднее значение величины $\sim \mathbf{\dot{r}}\times\mathbf{M}$ будет нулевым, тогда верно соотношение:
+	\[\Big<\mathbf{\ddot{r}}\times\mathbf{M}\Big>_T = \Big<\frac{\mathbf{r}}{\alpha r^3} \times \mathbf{M}\Big>_T \eqno(9)\]
+	Теперь воспользуемся симметрией невозмущенной орбиты: для этого разложим вектор $\mathbf{r}$ на 2 компоненты, первая будет параллельна $\mathbf{A}$, вторая перпендикулярна. Т.к. орбиты планет в невозмущенной задаче являются эллипсами, а вектор $\mathbf{A}$ проведен из фокуса к перигею орбиты, то получается, что среднее значение величины $\sim \mathbf{r_{\perp}} \times \mathbf{M}$ будет равно 0. 
+	\begin{figure}[h!]
+		\center{\includegraphics[scale=0.6]{orbit.png}}
+		\caption{Примерная орбита планеты}
+	\end{figure}
+
+ 	Получается что выражние (9) можно переписать в виде:
+ 	\[\Big<\mathbf{\ddot{r}}\times\mathbf{M}\Big>_T = \Big<\frac{\mathbf{r_\parallel}}{\alpha r^3} \times \mathbf{M}\Big>_T = \Big<\frac{r \cos\phi \mathbf{A}}{\alpha r^3 A}\Big>_T \times \mathbf{M} = \frac{1}{A\alpha} \Big<\frac{\cos \phi}{r^2}\Big>_T \mathbf{A\times M} \eqno(10)\]
+ 	Теперь считаем интеграл:
+ 	\[\Big<\frac{\cos \phi}{r^2}\Big>_T = \frac{1}{T}\int_0^{T} \frac{\cos \phi}{r^2} dt = \frac{1}{T} \int_0^{2\pi} \frac{\cos \phi}{r^2} \frac{d\phi}{\phi'_t} = \frac{1}{T} \int_0^{2\pi} \frac{\cos \phi}{r^2} \frac{r^2 m}{M}d \phi = 0 \eqno(11)\]
+ 	Возвращаясь по цепочке уравнений обратно к (2) делаем вывод, что вектор $\mathbf{A}$ является постоянной величиной.
+ 	
+ 	\section*{Задача 4}
+ 	На электрон действует сила $\mathbf{F}_{ad} = \beta \mathbf{\ddot{v}}$, где коэффициент $\beta = \frac{2e^2}{3c^3}$. Требуется определить что будет происходить с орбитой электрона и через какое время он упадет на протон.	
+ 	
+ 	Производная момента импульса записывается:
+ 	\begin{equation}
+ 	\mathbf{\dot{M}} = \mathbf{r\times F}_{ad}
+ 	\end{equation}
+ 	Пусть изначально электрон двигался по окружности, тогда его скорость определяется соотношением:
+ 	\begin{equation}
+ 	\mathbf{v} = \mathbf{\Omega \times r}
+  	\end{equation}
+  	Пренебрегая изменением $r$ за период находим соотношения для производных скорости:
+  	\begin{equation}
+  		\mathbf{\dot{v} = \Omega \times (\Omega \times r)}\;\;\;\;\mathbf{\ddot{v} = \Omega \times \dot{v}}
+  	\end{equation}
+  	Воспользуемся теперь тем фактом, что движение электрона будет плоским. Это утверждение очевидно, если сила является центральной, поэтому необходимо разобраться как добавочная сила $\mathbf{F}_{ad}$ влияет на момент импульса. Если отталкиваться от задачи Кеплера, то получим, что вектор $\mathbf{\ddot{v}}$ лежит в плоскости орбиты, причем он $\parallel \mathbf{v}$. Получается, добавочная сила меняет модуль момента импульса, и движение остается плоским. В таком случае можно переписать уравнение (3) через скалярные\footnote{Тут под $\omega$ подразумевается $|\mathbf{\Omega}|$} величины.
+  	\begin{equation}
+  		F_{ad} = \beta \omega^3 r
+  	\end{equation}
+  	В скалярном виде уранение (1) примет вид:
+  	\[\frac{d}{dt}\Big( m r v \Big) = -\beta \omega^3 r \cdot r \Leftrightarrow\]
+  	\begin{equation}
+  		 \frac{d}{dt}\Big(m\omega r^2\Big) = -\beta \omega^3 r^2
+  	\end{equation}
+  	
+  	Для определения зависимости радиуса от времени воспользуемся проекцией закона движения электрона на радиуальную ось:
+  	\begin{equation}
+  		m\omega^2 r = \frac{e^2}{r^2}
+  	\end{equation}
+  	Вытаскивем из этого соотношения $\omega$:
+  	\begin{equation}
+  		\omega = \frac{e}{r^{3/2}\sqrt{m} }
+  	\end{equation}
+  	Тогда подстановка в (5) дает соотношение:
+  	\begin{equation}
+  		\frac{d}{dt}\Big(e\sqrt{mr}\Big) = -\frac{\beta e^3r^2}{r^{9/2}m^{3/2}}
+  	\end{equation}
+  	Интегрируем уравнение (8):
+  	\begin{equation}
+  		\int_{R_0}^{0} \sqrt{r^5} d\sqrt{r} = -\int_0^{T} \frac{\beta e^2}{m^2} dt
+  	\end{equation}
+  	\begin{equation}
+  		\frac{R_0^3}{6} = \frac{\beta e^2}{m^2}T \Leftrightarrow T = \frac{R_0^3m^2}{6e^2\beta} = \frac{R_0^3 m^2 3c^3}{12 e^4} = \frac{R_0^3 m^2c^3}{4e^4}
+  	\end{equation}
+  	Окончательно получаем:
+  	\[\boxed{T = \frac{m^2c^3R_0^2}{4e^4}}\]
+  	
+  	
+  	Теперь разберемся что происходит в процессе движения с вектором $\mathbf{A}$.
+  	\begin{equation}
+  		\mathbf{\dot{A} = }\frac{1}{\alpha m} \mathbf{F_{ad} \times M} + \frac{1}{\alpha} \mathbf{\dot{r}\times(r\times F_{ad}) }
+  	\end{equation}
+  	Первое слагаемое при усреденении дает 0, т.к. в $\mathbf{F}_{ad}$ сидит $\mathbf{\ddot{v}}$, которое является полной производной периодической функции. Для определения среднего значения второго члена выполним следующий ход:
+  	\[\mathbf{\dot{r}\times (r\times F_{ad}) = \dot{r}\times \dot{M} = \dot{r}\times \dot{M} + \ddot{r} \times M - \ddot{r} \times M = \frac{d}{dt}\Big( \dot{r} \times M \Big)  - \ddot{r}\times M }\]
+  	Получается, что усреднение по периоду дает соотношение:
+  	\begin{equation}
+  		\Big<\mathbf{\dot{r}\times (r\times F_{ad})}\Big>_T = -\Big<\mathbf{\ddot{r}\times M}\Big>_T = -\Big<\mathbf{\ddot{r}}\Big>_T\times \mathbf{M} = 0
+  	\end{equation}
+  	Последний переход в цепочке равенств (12) справедлив, т.к. электрон в невозмущенной задаче движется по окружности, а значит среднее ускорение будет нулевым.
+  	
+  	
+  	Получается что вектор $\mathbf{A}$ остается постоянным в процессе движения электрона.
 \end{document}
