@@ -181,18 +181,137 @@
   	\[\boxed{T = \frac{m^2c^3R_0^2}{4e^4}}\]
   	
   	
-  	Теперь разберемся что происходит в процессе движения с вектором $\mathbf{A}$.
+  	Теперь разберемся что происходит в процессе движения с вектором $\mathbf{A}$, при условии, что изначально орбита электрона не являлась круговой.
   	\begin{equation}
   		\mathbf{\dot{A} = }\frac{1}{\alpha m} \mathbf{F_{ad} \times M} + \frac{1}{\alpha} \mathbf{\dot{r}\times(r\times F_{ad}) }
   	\end{equation}
-  	Первое слагаемое при усреденении дает 0, т.к. в $\mathbf{F}_{ad}$ сидит $\mathbf{\ddot{v}}$, которое является полной производной периодической функции. Для определения среднего значения второго члена выполним следующий ход:
-  	\[\mathbf{\dot{r}\times (r\times F_{ad}) = \dot{r}\times \dot{M} = \dot{r}\times \dot{M} + \ddot{r} \times M - \ddot{r} \times M = \frac{d}{dt}\Big( \dot{r} \times M \Big)  - \ddot{r}\times M }\]
-  	Получается, что усреднение по периоду дает соотношение:
+  	Первое слагаемое при усреденении дает 0, т.к. в $\mathbf{F}_{ad}$ сидит $\mathbf{\ddot{v}}$, которое является полной производной периодической функции.
+  	
+  	
+  	Рассмотрим второе слагаемое в сумме.
+  	\[\frac{1}{\alpha}\mathbf{\dot{r}\times (r \times F_{ad})} = \frac{\beta}{\alpha} \mathbf{\dot{r}\times (r \times \dddot{r})}\]
+  	Преобразуем\footnote{Используем тождество Якоби} векторное произведение:
   	\begin{equation}
-  		\Big<\mathbf{\dot{r}\times (r\times F_{ad})}\Big>_T = -\Big<\mathbf{\ddot{r}\times M}\Big>_T = -\Big<\mathbf{\ddot{r}}\Big>_T\times \mathbf{M} = 0
+  		\mathbf{
+  			\dot{r}\times (r \times \dddot{r}) = \dddot{r}\times (r \times \dot{r}) + r\times(\dot{r}\times\dddot{r}) = \frac{\dddot{r}}{m}\times M + r\times(\dot{r}\times\dddot{r})
+  		  		}  
   	\end{equation}
-  	Последний переход в цепочке равенств (12) справедлив, т.к. электрон в невозмущенной задаче движется по окружности, а значит среднее ускорение будет нулевым.
-  	
-  	
-  	Получается что вектор $\mathbf{A}$ остается постоянным в процессе движения электрона.
+  	При усреднении первое слагаемое даст 0, во втором слагаемом выделяем полную производную:
+  	\[
+  	\mathbf{  	
+  		r\times(\dot{r}\times\dddot{r}) = \frac{d}{dt}\Big(r\times (\dot{r}\times\ddot{r})\Big) - \dot{r}\times(\dot{r}\times\ddot{r}) = \frac{d}{dt}\Big(r\times (\dot{r}\times\ddot{r})\Big) + v\times (\dot{v}\times v)
+  	}\]
+  
+  Тогда при усреднении соотношения (11) получим выражение:
+  \begin{equation}
+  	\mathbf{
+  		\dot{A} = \Big<\frac{\beta}{\alpha} v\times(\dot{v}\times v)\Big>_T
+  	}
+  \end{equation}
+  
+	
+  \begin{figure}[h]
+  	\begin{center}
+  		\begin{minipage}[h]{0.4\linewidth}
+  			\includegraphics[scale=0.5]{ellips.png}
+  			\caption{К выводу зависимости изменения скорости} %% подпись к рисунку
+  		\end{minipage}
+  		\hfill
+  		\begin{minipage}[h]{0.4\linewidth}
+  			\includegraphics[scale=0.5]{velocity.png}
+  			\caption{Разложение скорости}
+  		\end{minipage}
+  	\end{center}
+  \end{figure}
+
+	Для начала заметим, что измение скорости можно описать соотношением:
+	\[ d\vec{v} = \vec{a} dt \Rightarrow d v = adt = \frac{\alpha}{mr^2} dt = \frac{\alpha}{m r^2}\cdot \frac{d\phi}{\phi'_t} = \frac{\alpha}{M} d\phi, \;\;\;\text{$dv$ --- измение проекции скорости на $\vec{r}$}\]
+	Из данного соотнношениия понятно, что изменение скорости при конечных измененихя угла будет такой же, как если бы тело двигалось просто по окружности с постоянной по модулю скоростью. Рисунок (3) демонстирует как данный факт можно применить к эллиптической орбите. 
+	\pagebreak
+	
+	Становится очевидно, что годограф скорости при движении по эллипсу представляет из себя окружность, центр которой смещен на вектор $u$. Разложим скорость $\mathbf{V}$ на 2 составляющие: $\mathbf{u_0} + \mathbf{v_0}$, где вектор $\mathbf{u_0}$ --- постоянный вектор, а $\mathbf{v_0}$ --- вращается.
+	
+	\begin{figure}[h!]
+		\center{\includegraphics[scale=0.6]{diagram.png}}
+		\caption{Годограф скоростей}
+	\end{figure}
+	Перепишем соотношение (13):
+	\begin{equation}
+	\mathbf{
+	V\times(\dot{V}\times V) = \dot{V}\cdot V^2 - V (\dot{V},V) 	
+	}
+	\end{equation}
+	Разбираемся со вторым членом:
+	\[\mathbf{V (\dot{V},V) = V (\left[\Omega,V_0\right],U_0) = V} 
+	\Omega V_0 U_0 \sin(\phi) = \mathbf{(V_0 + U_0)} \Omega V_0 U_0 \sin(\phi)
+	\]
+	Усредняем:
+	\[\frac{1}{T}\int_0^T \mathbf{V (\dot{V},V)} dt =  \frac{1}{T}\int_0^T \mathbf{(V_0 + U_0)} \Omega V_0 U_0 \sin(\phi) dt = \frac{1}{T}\int_0^{2\pi} \mathbf{(V_0 + U_0)} \Omega V_0 U_0 \sin(\phi) \frac{d\phi}{\Omega} = \]
+	\begin{equation}= \frac{1}{T}\int_0^{2\pi} \mathbf{V_0} V_0 U_0 \sin(\phi) d\phi = \frac{1}{T}\int_0^{2\pi} 
+	\begin{pmatrix}
+	V_0 \cos \phi \\
+	V_0 \sin \phi
+	\end{pmatrix}
+	 V_0 U_0 \sin(\phi) d\phi = \frac{U_0\cdot V_0^2}{2T}\begin{pmatrix}0\\1\end{pmatrix}\end{equation}
+	Осталось только вычислить среднее значение первого слагаемого в сумме (14):
+	\[
+		\frac{1}{T}\int_0^T \mathbf{\dot{V}} V^2 dt = \frac{1}{T}\int_0^{2\pi} \Omega V_0 \begin{pmatrix}\sin\phi \\ -\cos\phi\end{pmatrix} V^2 \frac{d\phi}{\Omega} = \frac{1}{T}\int_0^{2\pi} V_0 \begin{pmatrix}\sin\phi \\ -\cos\phi\end{pmatrix} (V_0^2+U_0^2 + 2U_0V_0\cos\phi) d\phi = 
+	\]
+	\begin{equation}
+		= \frac{1}{T}\int_0^{2\pi} 2V_0^2\cdot U_0 \begin{pmatrix}\sin \phi \\ -\cos \phi\end{pmatrix}\cos \phi d\phi = \frac{U_0 \cdot V_0^2}{T} \begin{pmatrix}0\\-1\end{pmatrix}
+	\end{equation}
+	С учетом формул (15) и (16) получаем ответ для усреднения формулы (14):
+	\begin{equation}\Big<\mathbf{V\times(\dot{V}\times V)}\Big>_T = \frac{3 U_0 \cdot V_0^2}{2 T}\begin{pmatrix}0 \\ -1\end{pmatrix}\end{equation}
+	
+	Теперь займемся определением величин $U_0,V_0$. Первым делом следует заметить, что годограф скоростей Рис.(4) позволяет отпределить максимальную и минимальную скорость электрона:
+	\begin{equation}V_{min} = U_0-V_0,\;\;\;V_{max} = U_0 + V_0\end{equation}
+	С другой стороны, мы знаем что максимальная и минимальная скорость при движении электрона по эллипсу достигаются в апогее и перигее орбиты. Из этого следует вектор, полученный в формуле (17) и равный $\mathbf{\dot{A}}$ направлен против $\mathbf{A}$, т.е модуль вектора $\mathbf{A}$ (он же эксцентриситет орбиты) уменьшается.
+	Для нахождения скоростей параметризуем орбиту через угол $\phi$:
+	\[r(\phi) = \frac{p}{1+A\cos \phi },\;\;\; p = \frac{M^2}{\alpha m}\]
+	Тогда скорости в апогее и перигее можно найти из ЗСЭ:
+	\[\begin{cases}\frac{mV^2_{min}}{2} - \alpha/r_1 = E\\ \frac{mV^2_{max}}{2} - \alpha/r_2 = E\end{cases}\]
+	\[\begin{cases}
+	V^2_{min} = \frac{2}{m}(E+\frac{\alpha}{p}(1-A)) \\
+	V^2_{max} = \frac{2}{m}(E+\frac{\alpha}{p}(1+A)) \\
+	\end{cases} \Leftrightarrow 
+	\begin{cases}
+	V^2_{min} = \frac{2}{m}((A^2-1)\frac{\alpha}{2p}+\frac{\alpha}{p}(1-A)) \\
+	V^2_{max} = \frac{2}{m}((A^2-1)\frac{\alpha}{2p}+\frac{\alpha}{p}(1+A)) \\
+	\end{cases} \Leftrightarrow \]
+	\[
+		\begin{cases}
+		V^2_{min} = \frac{1}{m}\frac{\alpha}{p}(1-A)(-1-A+2)  \\
+		V^2_{max} = \frac{1}{m}\frac{\alpha}{p}(1+A)((A-1)+2) \\
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+		V^2_{min} = \frac{\alpha}{mp}(1-A)^2 \\
+		V^2_{max} = \frac{\alpha}{mp}(1+A)^2 \\
+		\end{cases}
+		\Leftrightarrow
+		\begin{cases}
+		V^2_{min} = \frac{\alpha^2}{M^2}(1-A)^2 \\
+		V^2_{max} = \frac{\alpha^2}{M^2}(1+A)^2 \\
+		\end{cases}
+	\]
+	Окончательные выражения для скоростей:
+	\begin{equation}\begin{cases}
+	V_{min} = \frac{\alpha}{M}(1-A) \\
+	V_{max} = \frac{\alpha}{M}(1+A)
+	\end{cases}
+	\end{equation}
+	Тогда скорости $V_0,U_0$ выражаются из (19),(18):
+	\begin{equation}
+	\begin{cases}
+	U_0 = \frac{\alpha}{M} \\ 
+	V_0 = \frac{\alpha A}{M}
+	\end{cases}
+	\end{equation}
+	Окончательное выражение для производной вектора $\mathbf{A}$ принимает вид:
+	\[
+		\dot{A} = -\frac{3}{2}\cdot\frac{\alpha^3}{M^3}A^2 \cdot \frac{\alpha^2 m (1-A^2)^{3/2}}{2\pi M^3} \Leftrightarrow
+	\]
+	\begin{equation}
+		\boxed{\dot{A} = -\frac{3\alpha^5 m A^2 (1-A^2)^{3/2}}{4\pi M^6}}
+	\end{equation}
 \end{document}
